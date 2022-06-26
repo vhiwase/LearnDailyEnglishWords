@@ -204,12 +204,15 @@ def word_dict(word):
     #     img.save(image_file, extension)
     #     local_image_files.append(image_file)
     # word_meaning["local_image_files"] = local_image_files
+    image_links = word_meaning["image_links"]
+    if image_links is None:
+        image_links = []
     return render_template(
         "index.html",
         word=word_meaning["word"].upper(),
         antonym=word_meaning["antonym"],
         description=word_meaning["description"],
-        image_links=word_meaning["image_links"],
+        image_links=image_links,
         # local_image_files = word_meaning['local_image_files'],
         long=word_meaning["long"],
         short=word_meaning["short"],
