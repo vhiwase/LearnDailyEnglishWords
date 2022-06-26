@@ -58,6 +58,18 @@ def get_page(word):
     return page.text
 
 
+def get_page_for_sentence(word):
+    url = get_link(word)
+    driver.get(url)
+    driver.execute_script(
+        "window.scrollTo(0, document.body.scrollHeight)"
+    )  # Scroll to the bottom of the page
+    time.sleep(1)  # Wait 4 seconds for all the images to load
+    data = driver.execute_script("return document.documentElement.outerHTML")
+    scraper = BeautifulSoup(data, "lxml")
+    return str(scraper)
+
+
 def get_description(content):
     soup = BeautifulSoup(content)
     meta_content_list = soup.findAll("meta", {"name": "description"})
@@ -92,24 +104,32 @@ def get_instance(content, ins_type):
         ch_type = "Antonyms:"
     if ins_type == "type_of":
         ch_type = "Type of:"
-    res = {}
+    # res = {}
     for instance in instance_div:
-        dt_div = instance.findAll("dt")
-        if not dt_div:
-            return []
-        assert len(dt_div) == 1
-        dt_div = dt_div[0]
-        if dt_div.get_text() != "":
-            current_type = dt_div.get_text()
-        if current_type == ch_type:
+        if ch_type in instance.get_text().split():
             a_div = instance.findAll("a", {"class": "word"})
-        for word_div in a_div:
-            word = word_div.get_text()
-            res[word] = ""
-    ret = []
-    for key in res:
-        ret.append(key)
-    return ret
+            word_divs = []
+            for word_div in a_div:
+                word_div_text = word_div.get_text()
+                word_divs.append(word_div_text)
+            return word_divs
+    else:
+        return []
+        # dd_div = instance.findAll("dd")
+        # for each_dd_div in dd_div:
+        #     if not dd_div:
+        #         break
+        #         # return []
+        # if each_dd_div.get_text() != "":
+        #     current_type = each_dd_div.get_text()
+        #     a_div = instance.findAll("a", {"class": "word"})
+        #     for word_div in a_div:
+        #         word = word_div.get_text()
+        #         res[word] = ""
+    # ret = []
+    # for key in res:
+    #     ret.append(key)
+    # return ret
 
 
 def get_synonym(content):
@@ -124,6 +144,16 @@ def get_antonym(content):
     return get_instance(content, "antonym")
 
 
+def get_sentence(word):
+    page = get_page_for_sentence(word)
+    soup = BeautifulSoup(page)
+    sentence_example_div = soup.findAll("div", {"class": "sentence"})
+    examples = []
+    for sentence_div in sentence_example_div:
+        examples.append(str(sentence_div.text))
+    return examples
+
+
 def get_json(word):
     json_dict = {}
     page = get_page(word)
@@ -133,12 +163,14 @@ def get_json(word):
     synonym = get_synonym(page)
     type_of = get_type_of(page)
     antonym = get_antonym(page)
+    examples = get_sentence(word)
     json_dict["description"] = description["content"]
     json_dict["short"] = short_def
     json_dict["long"] = long_def
     json_dict["synonym"] = synonym
     json_dict["antonym"] = antonym
     json_dict["type_of"] = type_of
+    json_dict["examples"] = examples
     # json.dumps(json_dict, indent = 4)
     return json_dict
 
@@ -150,7 +182,7 @@ def imagescrape(search_term):
         driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight)"
         )  # Scroll to the bottom of the page
-        time.sleep(4)  # Wait 4 seconds for all the images to load
+        # time.sleep(4)  # Wait 4 seconds for all the images to load
         data = driver.execute_script("return document.documentElement.outerHTML")
         scraper = BeautifulSoup(data, "lxml")
         img_container = scraper.find_all("img")
@@ -208,6 +240,7 @@ def word_dict(word):
     image_links = word_meaning["image_links"]
     if image_links is None:
         image_links = []
+    print("word_meaning", word_meaning)
     return render_template(
         "index.html",
         word=word_meaning["word"].upper(),
@@ -219,6 +252,7 @@ def word_dict(word):
         short=word_meaning["short"],
         synonym=word_meaning["synonym"],
         type_of=word_meaning["type_of"],
+        examples=word_meaning["examples"],
     )
 
 

@@ -10,3 +10,7 @@ docker-compose down -v
 
 ## Docker Image
 DockerHub https://hub.docker.com/repository/docker/sad123/learn-daily-english-words
+
+## Access Application Online
+Hosted on Azure Container App with CI/CD and OAuth security
+Link of Application: https://learn-daily-english-words.delightfulforest-b9dc5d98.eastasia.azurecontainerapps.io

@@ -4,14 +4,14 @@ name: Trigger auto deployment for learn-daily-english-words
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
+    branches:
       [ master ]
     paths:
     - '**'
     - '.github/workflows/learn-daily-english-words-AutoDeployTrigger-9d3f4e82-517b-498c-b919-4457d41807f1.yml'
 
-  # Allow mannually trigger 
-  workflow_dispatch:      
+  # Allow mannually trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+
     steps:
       - name: Azure Login
         uses: azure/login@v1

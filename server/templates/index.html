@@ -15,11 +15,6 @@
 <body>
     <div><h1>{{word}}</h1></div>
     <h2>{{description}}</h2>
-    <br>
-    <div>
-        <h3>Short Meaning</h3>
-        <p> {{short}} </p>
-    </div>
     <div>
         <h3>Long Meaning</h3>
         <p> {{long}} </p>
@@ -33,9 +28,16 @@
     <div>
         <p>Type of : {{type_of}}</p>
     </div>
-
-    {% for local_image_file in image_links %}
-    <img src="{{ local_image_file }}" alt="local_image_file">
-    {% endfor %}
+    <h3> Examples in Sentence: </h3>
+    <div>
+        {% for example in examples %}
+        <p> {{example}} </p>
+        {% endfor %}
+    </div>
+    <div>
+        {% for local_image_file in image_links %}
+        <img src="{{ local_image_file }}" alt="local_image_file">
+        {% endfor %}
+    </div>
 </body>
 </html>`
