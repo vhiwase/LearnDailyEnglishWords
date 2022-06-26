@@ -19,6 +19,21 @@ from webdriver_manager.chrome import (
 
 app = Flask(__name__)
 
+chrome_options = Options()
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--window-size=1920,1080")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--disable-dev-shm-usage")
+try:
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+except Exception as e:
+    print(e)
+    driver = webdriver.Chrome(
+        ChromeDriverManager().install(), options=chrome_options
+    )  # chrome_options is deprecated
+    driver.maximize_window()
+
 ROOT_PATH = pathlib.Path(__file__)
 BASE_PATH = ROOT_PATH.parent
 
@@ -130,20 +145,6 @@ def get_json(word):
 
 def imagescrape(search_term):
     try:
-        chrome_options = Options()
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        try:
-            driver = webdriver.Chrome(chrome_options=chrome_options)
-        except Exception as e:
-            print(e)
-            driver = webdriver.Chrome(
-                ChromeDriverManager().install(), options=chrome_options
-            )  # chrome_options is deprecated
-            driver.maximize_window()
         url = "https://www.shutterstock.com/search/{}".format(search_term)
         driver.get(url)
         driver.execute_script(
@@ -159,7 +160,7 @@ def imagescrape(search_term):
                 img_src = img_container[j].get("src")
                 if "logo" not in img_src:
                     image_links.append(img_src)
-        driver.close()
+        # driver.close()
         return image_links
     except Exception as e:
         print(e)
