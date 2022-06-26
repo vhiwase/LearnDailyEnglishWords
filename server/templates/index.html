@@ -1,0 +1,41 @@
+<html>
+<style>
+    h1 {text-align: center; font-family:"verdana"}
+    h2 {text-align: center; font-family:"Inter"}
+    h3 {text-align: center; font-family:"verdana"}
+    h4 {text-align: center; font-family:"Courier New"}
+    p {text-align: center; font-family:"Open Sans"}
+    div {text-align: left; font-family:"verdana"}
+</style>
+<head>
+    <title>
+        Learn English Words Daily
+    </title>
+</head>
+<body>
+    <div><h1>{{word}}</h1></div>
+    <h2>{{description}}</h2>
+    <br>
+    <div>
+        <h3>Short Meaning</h3>
+        <p> {{short}} </p>
+    </div>
+    <div>
+        <h3>Long Meaning</h3>
+        <p> {{long}} </p>
+    </div>
+    <div>
+        <p>Synonym: {{synonym}}</p>
+    </div>
+    <div>
+        <p>Antonym: {{antonym}}</p>
+    </div>
+    <div>
+        <p>Type of : {{type_of}}</p>
+    </div>
+
+    {% for local_image_file in image_links %}
+    <img src="{{ local_image_file }}" alt="local_image_file">
+    {% endfor %}
+</body>
+</html>`

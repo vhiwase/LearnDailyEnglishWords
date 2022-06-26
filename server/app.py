@@ -1,13 +1,26 @@
+# import os
+import pathlib
 import ssl
 import time
 
+# from io import BytesIO
+# from shutil import rmtree
+# import filetype
 import requests
 from bs4 import BeautifulSoup
+from flask import Flask, redirect, render_template, request, url_for
+
+# from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import (
     ChromeDriverManager,
 )  # use to initialize driver in a better way without having chromedriver path mentioned.
+
+app = Flask(__name__)
+
+ROOT_PATH = pathlib.Path(__file__)
+BASE_PATH = ROOT_PATH.parent
 
 """
 pip install beautifulsoup4
@@ -131,14 +144,7 @@ def imagescrape(search_term):
                 ChromeDriverManager().install(), options=chrome_options
             )  # chrome_options is deprecated
             driver.maximize_window()
-        url = (
-            "https://www.shutterstock.com/search?search_term="
-            + search_term
-            + "&sort=popular&image_type="
-            + "photo"
-            + "&search_source=base_landing_page&language=en&page="
-            + str(1)
-        )
+        url = "https://www.shutterstock.com/search/{}".format(search_term)
         driver.get(url)
         driver.execute_script(
             "window.scrollTo(0, document.body.scrollHeight)"
@@ -159,9 +165,58 @@ def imagescrape(search_term):
         print(e)
 
 
-if __name__ == "__main__":
-    word = "photo"
+@app.route("/check")
+def check():
+    return "Application is up"
+
+
+@app.route("/", methods=["POST", "GET"])
+def home():
+    if request.method == "POST":
+        word = request.form["text"]
+        return redirect(url_for("word_dict", word=word))
+    else:
+        word = request.args.get("text")
+        return render_template("home.html")
+
+
+@app.route("/scrap/<word>")
+def word_dict(word):
+    # image_folder = BASE_PATH / "temp"
+    # os.makedirs(image_folder, exist_ok=True)
+    # rmtree(image_folder)
+    # os.makedirs(image_folder, exist_ok=True)
     word_meaning = get_json(word)
+    word_meaning["word"] = word
     image_links = imagescrape(word)
-    print(image_links)
-    print(word_meaning)
+    word_meaning["image_links"] = image_links
+    # local_image_files = []
+    # for url in image_links:
+    #     response = requests.get(url)
+    #     byte_data = BytesIO(response.content)
+    #     extension = filetype.guess_extension(byte_data)
+    #     img = Image.open(byte_data).convert("RGB")
+    #     url_pathlib = pathlib.Path(url)
+    #     image_file = image_folder / url_pathlib.name
+    #     image_file = image_file.as_posix()
+    #     if extension=='jpg':
+    #         extension = 'jpeg'
+    #     img.save(image_file, extension)
+    #     local_image_files.append(image_file)
+    # word_meaning["local_image_files"] = local_image_files
+    return render_template(
+        "index.html",
+        word=word_meaning["word"].upper(),
+        antonym=word_meaning["antonym"],
+        description=word_meaning["description"],
+        image_links=word_meaning["image_links"],
+        # local_image_files = word_meaning['local_image_files'],
+        long=word_meaning["long"],
+        short=word_meaning["short"],
+        synonym=word_meaning["synonym"],
+        type_of=word_meaning["type_of"],
+    )
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
