@@ -7,7 +7,7 @@ on:
     branches: 
       [ master ]
     paths:
-    - '"./Dockerfile"/**'
+    - '**'
     - '.github/workflows/learn-daily-english-words-AutoDeployTrigger-9d3f4e82-517b-498c-b919-4457d41807f1.yml'
 
   # Allow mannually trigger 
