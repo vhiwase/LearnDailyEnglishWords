@@ -1,0 +1,9 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: learn-daily-english
+    command: python3 -u app.py
+    ports:
+      - "5000:5000"
