@@ -1,11 +1,9 @@
-"""
-pip install beautifulsoup4
-pip install selenium
-pip install lxml
-pip install webdriver-manager
-"""
-
 import json
+import pathlib
+
+ROOT_PATH = pathlib.Path(__file__)
+BASE_PATH = ROOT_PATH.parent
+pathlib.sys.path.insert(0, BASE_PATH)
 
 # import os
 import pathlib
@@ -18,7 +16,6 @@ from collections import defaultdict
 # import filetype
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, redirect, render_template, request, url_for
 
 # from PIL import Image
 from selenium import webdriver
@@ -27,7 +24,8 @@ from webdriver_manager.chrome import (
     ChromeDriverManager,
 )  # use to initialize driver in a better way without having chromedriver path mentioned.
 
-app = Flask(__name__)
+JSON_PATH = (BASE_PATH / "important_words.json").absolute().as_posix()
+DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()
 
 chrome_options = Options()
 chrome_options.add_argument("--no-sandbox")
@@ -46,11 +44,13 @@ except Exception as e:
 
 ROOT_PATH = pathlib.Path(__file__)
 BASE_PATH = ROOT_PATH.parent
-DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()
 
-if pathlib.Path(DATABASE_PATH).is_file():
-    with open(DATABASE_PATH, "r") as f:
-        vocabulary_dict = json.load(f)
+"""
+pip install beautifulsoup4
+pip install selenium
+pip install lxml
+pip install webdriver-manager
+"""
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -196,7 +196,6 @@ def get_json(word):
     page = get_page(word)
     description = get_description(page)
     pos_sentence_dict = get_part_of_speech_and_short_definition(page)
-    print("pos_sentence_dict", pos_sentence_dict)
     pos = []
     if pos_sentence_dict:
         pos = list(filter(None, pos_sentence_dict.keys()))
@@ -205,6 +204,11 @@ def get_json(word):
         if k and v:
             short_def_text = "({}) {}".format(k, v[0])
             shorts.append(short_def_text)
+    if not shorts:
+        for values in pos_sentence_dict.values():
+            shorts = values
+            if shorts:
+                break
     long_def = get_long_definition(page)
     synonym = get_synonym(page)
     type_of = get_type_of(page)
@@ -245,107 +249,68 @@ def imagescrape(search_term):
         print(e)
 
 
-@app.route("/check")
-def check():
-    return "Application is up"
-
-
-# @app.route("/", methods=["GET", "POST"])
-# def home():
-#     if request.method == "GET":
-#         return redirect(url_for("vocabulary_meaning", word=None))
-
-
-@app.route("/", methods=["GET", "POST"])
-def get_request():
-    if request.method == "POST":
-        word = request.form["text"]
-        return redirect(url_for("post_request", word=word))
-    word = ""
-    word_meaning = get_json(word)
-    word_meaning["word"] = word.upper()
-    image_links = []
-    return render_template(
-        "index.html",
-        word=word_meaning["word"],
-        antonym=word_meaning["antonym"],
-        description=word_meaning["description"],
-        image_links=image_links,
-        # local_image_files = word_meaning['local_image_files'],
-        long=word_meaning["long"],
-        shorts=word_meaning["shorts"],
-        synonym=word_meaning["synonym"],
-        type_of=word_meaning["type_of"],
-        examples=word_meaning["examples"],
-        part_of_speech=word_meaning["part_of_speech"],
-    )
-
-
-@app.route("/<word>", methods=["GET"])
-def post_request(word):
+def api_request(word):
     word = word.strip()
-    word = word.lower()
-    if not (word in vocabulary_dict.keys()):
-        # image_folder = BASE_PATH / "temp"
-        # os.makedirs(image_folder, exist_ok=True)
-        # rmtree(image_folder)
-        # os.makedirs(image_folder, exist_ok=True)
-        word_meaning = get_json(word)
-        image_links = imagescrape(word)
-        word_meaning["image_links"] = image_links
-        vocabulary_dict[word.lower()] = word_meaning
-    else:
-        word_meaning = vocabulary_dict[word]
-    word_meaning["word"] = word.upper()
-    # local_image_files = []
-    # for url in image_links:
-    #     response = requests.get(url)
-    #     byte_data = BytesIO(response.content)
-    #     extension = filetype.guess_extension(byte_data)
-    #     img = Image.open(byte_data).convert("RGB")
-    #     url_pathlib = pathlib.Path(url)
-    #     image_file = image_folder / url_pathlib.name
-    #     image_file = image_file.as_posix()
-    #     if extension=='jpg':
-    #         extension = 'jpeg'
-    #     img.save(image_file, extension)
-    #     local_image_files.append(image_file)
-    # word_meaning["local_image_files"] = local_image_files
+    word_meaning = get_json(word)
+    word_meaning["word"] = word
+    image_links = imagescrape(word)
+    word_meaning["image_links"] = image_links
     image_links = word_meaning["image_links"]
     if image_links is None:
         image_links = []
-    print("word_meaning", word_meaning)
-    return render_template(
-        "index.html",
-        word=word_meaning["word"],
-        antonym=word_meaning["antonym"],
-        description=word_meaning["description"],
-        image_links=image_links,
-        # local_image_files = word_meaning['local_image_files'],
-        long=word_meaning["long"],
-        shorts=word_meaning["shorts"],
-        synonym=word_meaning["synonym"],
-        type_of=word_meaning["type_of"],
-        examples=word_meaning["examples"],
-        part_of_speech=word_meaning["part_of_speech"],
-    )
-
-
-@app.route("/api/<word>", methods=["GET"])
-def api_request(word):
-    word = word.strip()
-    word = word.lower()
-    if not (word in vocabulary_dict.keys()):
-        word_meaning = get_json(word)
-        word_meaning["word"] = word
-        image_links = imagescrape(word)
-        word_meaning["image_links"] = image_links
-        image_links = word_meaning["image_links"]
-        vocabulary_dict[word.lower()] = word_meaning
-    else:
-        word_meaning = vocabulary_dict[word]
     return word_meaning
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+with open(JSON_PATH, "r") as f:
+    important_vocabulary_dict = json.load(f)
+    book_words_list = important_vocabulary_dict["book_words_list"]
+    link_words = important_vocabulary_dict["link_words"]
+    all_words = important_vocabulary_dict["all_words"]
+
+word_meaning_outer_list = []
+c = sum([len(i) for i in all_words])
+if pathlib.Path(DATABASE_PATH).is_file():
+    with open(DATABASE_PATH, "r") as f:
+        vocabulary_dict = json.load(f)
+else:
+    vocabulary_dict = dict()
+
+for word_list in all_words:
+    word_meaning_inner_list = []
+    for enum, word in enumerate(word_list):
+        word = word.strip()
+        word = word.lower()
+        c -= 1
+        if word in vocabulary_dict:
+            continue
+        word_meaning_dictionary = api_request(word)
+        vocabulary_dict[word] = word_meaning_dictionary
+        word_meaning_inner_list.append(word_meaning_dictionary)
+        print("*" * 100)
+        print("*" * 100)
+        print("'{}' word is processing".format(word))
+        print("{} word are remaining".format(c))
+        print("Next checkpoint after {} words".format(len(word_list) - enum))
+        print("*" * 100)
+        print("*" * 100)
+    word_meaning_outer_list.append(word_meaning_inner_list)
+    with open(DATABASE_PATH, "w") as f:
+        f.write(json.dumps(vocabulary_dict, indent=4))
+        total = sum([len(i) for i in all_words])
+        print()
+        print()
+        print("#" * 100)
+        print("#" * 100)
+        print("*" * 100)
+        print("*" * 100)
+        print(
+            "{} words are saved successfully\n{} word list are remaining...".format(
+                total - c, c
+            )
+        )
+        print("*" * 100)
+        print("*" * 100)
+        print("#" * 100)
+        print("#" * 100)
+        print()
+        print()

@@ -58,10 +58,10 @@ RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 ENV DISPLAY=:99
 # install selenium
 RUN pip install selenium==3.8.0
-# copy source code
-COPY ./server $SERVER_HOME
 # COPY server/migrations $SERVER_HOME/migrations
 COPY ./server/app.py $SERVER_HOME
+COPY ./server/database.json $SERVER_HOME
+COPY ./server/templates/ $SERVER_HOME/templates
 # chown all the files to the app user
 RUN chown -R app:app $SERVER_HOME
 # change to the app user

@@ -1,5 +1,13 @@
 <html>
-<style>
+<style type="text/css">
+    .custom-centered{
+        margin:0 auto;
+        text-align: center;
+    }
+    .custom-left{
+        margin:0 auto;
+        text-align: left;
+    }
     h1 {text-align: center; font-family:"verdana"}
     h2 {text-align: center; font-family:"Inter"}
     h3 {text-align: center; font-family:"verdana"}
@@ -13,8 +21,19 @@
     </title>
 </head>
 <body>
+    <form action="/" method="post" class="custom-centered">
+        <input type="search" name="text", style="height:35px; width:600px;", placeholder="Start typing to look up a word...", required
+        minlength="1" maxlength="50">
+        <input type="submit", value="submit", class="btn btn-primary">
+    </form>
     <div><h1>{{word}}</h1></div>
     <h2>{{description}}</h2>
+    <div>
+        <h3>Short Meaning</h3>
+        {% for short in shorts %}
+        <p> {{short}} </p>
+        {% endfor %}
+    </div>
     <div>
         <h3>Long Meaning</h3>
         <p> {{long}} </p>
@@ -26,9 +45,9 @@
         <p>Antonym: {{antonym}}</p>
     </div>
     <div>
-        <p>Type of : {{type_of}}</p>
+        <p>part_of_speech : {{part_of_speech}}</p>
     </div>
-    <h3> Examples in Sentence: </h3>
+    <h3> Examples in Sentence </h3>
     <div>
         {% for example in examples %}
         <p> {{example}} </p>

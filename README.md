@@ -14,3 +14,9 @@ DockerHub https://hub.docker.com/repository/docker/sad123/learn-daily-english-wo
 ## Access Application Online
 Hosted on Azure Container App with CI/CD and OAuth security
 Link of Application: https://learn-daily-english-words.delightfulforest-b9dc5d98.eastasia.azurecontainerapps.io
+
+## Generate database for quick loading
+Run the following command to quickly load vocabulary words:
+```sh
+python3 server/database.py
+```
