@@ -20,9 +20,10 @@ from bs4 import BeautifulSoup
 # from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import (
-    ChromeDriverManager,
-)  # use to initialize driver in a better way without having chromedriver path mentioned.
+
+# use to initialize driver in a better way without
+# having chromedriver path mentioned.
+from webdriver_manager.chrome import ChromeDriverManager
 
 JSON_PATH = (BASE_PATH / "important_words.json").absolute().as_posix()
 DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()

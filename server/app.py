@@ -1,10 +1,3 @@
-"""
-pip install beautifulsoup4
-pip install selenium
-pip install lxml
-pip install webdriver-manager
-"""
-
 import json
 
 # import os
@@ -23,26 +16,12 @@ from flask import Flask, redirect, render_template, request, url_for
 # from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import (
-    ChromeDriverManager,
-)  # use to initialize driver in a better way without having chromedriver path mentioned.
+
+# use to initialize driver in a better way without
+# having chromedriver path mentioned.
+from webdriver_manager.chrome import ChromeDriverManager
 
 app = Flask(__name__)
-
-chrome_options = Options()
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--window-size=1920,1080")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-gpu")
-chrome_options.add_argument("--disable-dev-shm-usage")
-try:
-    driver = webdriver.Chrome(options=chrome_options)
-except Exception as e:
-    print(e)
-    driver = webdriver.Chrome(
-        ChromeDriverManager().install(), options=chrome_options
-    )  # chrome_options is deprecated
-    driver.maximize_window()
 
 ROOT_PATH = pathlib.Path(__file__)
 BASE_PATH = ROOT_PATH.parent
@@ -196,7 +175,6 @@ def get_json(word):
     page = get_page(word)
     description = get_description(page)
     pos_sentence_dict = get_part_of_speech_and_short_definition(page)
-    print("pos_sentence_dict", pos_sentence_dict)
     pos = []
     if pos_sentence_dict:
         pos = list(filter(None, pos_sentence_dict.keys()))
@@ -218,7 +196,6 @@ def get_json(word):
     json_dict["type_of"] = type_of
     json_dict["examples"] = examples
     json_dict["part_of_speech"] = pos
-    # json.dumps(json_dict, indent = 4)
     return json_dict
 
 
@@ -239,7 +216,6 @@ def imagescrape(search_term):
                 img_src = img_container[j].get("src")
                 if "logo" not in img_src:
                     image_links.append(img_src)
-        # driver.close()
         return image_links
     except Exception as e:
         print(e)
@@ -248,12 +224,6 @@ def imagescrape(search_term):
 @app.route("/check")
 def check():
     return "Application is up"
-
-
-# @app.route("/", methods=["GET", "POST"])
-# def home():
-#     if request.method == "GET":
-#         return redirect(url_for("vocabulary_meaning", word=None))
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -294,6 +264,8 @@ def post_request(word):
         image_links = imagescrape(word)
         word_meaning["image_links"] = image_links
         vocabulary_dict[word.lower()] = word_meaning
+        with open(DATABASE_PATH, "w") as f:
+            f.write(json.dumps(vocabulary_dict, indent=4))
     else:
         word_meaning = vocabulary_dict[word]
     word_meaning["word"] = word.upper()
@@ -342,10 +314,27 @@ def api_request(word):
         word_meaning["image_links"] = image_links
         image_links = word_meaning["image_links"]
         vocabulary_dict[word.lower()] = word_meaning
+        with open(DATABASE_PATH, "w") as f:
+            f.write(json.dumps(vocabulary_dict, indent=4))
     else:
         word_meaning = vocabulary_dict[word]
     return word_meaning
 
 
 if __name__ == "__main__":
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    try:
+        driver = webdriver.Chrome(options=chrome_options)
+    except Exception as e:
+        print(e)
+        driver = webdriver.Chrome(
+            ChromeDriverManager().install(), options=chrome_options
+        )  # chrome_options is deprecated
+        driver.maximize_window()
     app.run(host="0.0.0.0", port=5000)
+    driver.close()
