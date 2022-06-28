@@ -1,0 +1,8 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    image: learn-daily-english-words-database
+    volumes:
+          - ./server:/home/app/server
