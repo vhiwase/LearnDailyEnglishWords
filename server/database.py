@@ -261,56 +261,63 @@ def api_request(word):
     return word_meaning
 
 
-with open(JSON_PATH, "r") as f:
-    important_vocabulary_dict = json.load(f)
-    book_words_list = important_vocabulary_dict["book_words_list"]
-    link_words = important_vocabulary_dict["link_words"]
-    all_words = important_vocabulary_dict["all_words"]
-
-word_meaning_outer_list = []
-c = sum([len(i) for i in all_words])
-if pathlib.Path(DATABASE_PATH).is_file():
-    with open(DATABASE_PATH, "r") as f:
-        vocabulary_dict = json.load(f)
-else:
-    vocabulary_dict = dict()
-
-for word_list in all_words:
-    word_meaning_inner_list = []
-    for enum, word in enumerate(word_list):
-        word = word.strip()
-        word = word.lower()
-        c -= 1
-        if word in vocabulary_dict:
-            continue
-        word_meaning_dictionary = api_request(word)
-        vocabulary_dict[word] = word_meaning_dictionary
-        word_meaning_inner_list.append(word_meaning_dictionary)
-        print("*" * 100)
-        print("*" * 100)
-        print("'{}' word is processing".format(word))
-        print("{} word are remaining".format(c))
-        print("Next checkpoint after {} words".format(len(word_list) - enum))
-        print("*" * 100)
-        print("*" * 100)
-    word_meaning_outer_list.append(word_meaning_inner_list)
-    with open(DATABASE_PATH, "w") as f:
-        f.write(json.dumps(vocabulary_dict, indent=4))
-        total = sum([len(i) for i in all_words])
-        print()
-        print()
-        print("#" * 100)
-        print("#" * 100)
-        print("*" * 100)
-        print("*" * 100)
-        print(
-            "{} words are saved successfully\n{} word list are remaining...".format(
-                total - c, c
+def run():
+    with open(JSON_PATH, "r") as f:
+        important_vocabulary_dict = json.load(f)
+        all_words = important_vocabulary_dict["all_words"]
+    word_meaning_outer_list = []
+    c = sum([len(i) for i in all_words])
+    if pathlib.Path(DATABASE_PATH).is_file():
+        with open(DATABASE_PATH, "r") as f:
+            vocabulary_dict = json.load(f)
+    else:
+        vocabulary_dict = dict()
+    for word_list in all_words:
+        word_meaning_inner_list = []
+        for enum, word in enumerate(word_list):
+            word = word.strip()
+            word = word.lower()
+            c -= 1
+            if word in vocabulary_dict:
+                continue
+            word_meaning_dictionary = api_request(word)
+            if (
+                word_meaning_dictionary["description"]
+                == "We're sorry, your request has been denied."
+            ):
+                with open(DATABASE_PATH, "w") as f:
+                    f.write(json.dumps(vocabulary_dict, indent=4))
+                return
+            vocabulary_dict[word] = word_meaning_dictionary
+            word_meaning_inner_list.append(word_meaning_dictionary)
+            print("*" * 100)
+            print("*" * 100)
+            print("'{}' word is processing".format(word))
+            print("{} word are remaining".format(c))
+            print("Next checkpoint after {} words".format(len(word_list) - enum))
+            print("*" * 100)
+            print("*" * 100)
+        word_meaning_outer_list.append(word_meaning_inner_list)
+        with open(DATABASE_PATH, "w") as f:
+            f.write(json.dumps(vocabulary_dict, indent=4))
+            total = sum([len(i) for i in all_words])
+            print()
+            print()
+            print("#" * 100)
+            print("#" * 100)
+            print("*" * 100)
+            print("*" * 100)
+            print(
+                "{} words are saved successfully\n{} word list are remaining...".format(
+                    total - c, c
+                )
             )
-        )
-        print("*" * 100)
-        print("*" * 100)
-        print("#" * 100)
-        print("#" * 100)
-        print()
-        print()
+            print("*" * 100)
+            print("*" * 100)
+            print("#" * 100)
+            print("#" * 100)
+            print()
+            print()
+
+if __name__ == '__main__':
+    run()
