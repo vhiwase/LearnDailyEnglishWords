@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  height: 33.33%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+.collapsible {
+  margin: 8px;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 25px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  margin: 8px;
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.flip-card {
+  background-color: transparent;
+  padding: 0 18px;
+  width: 100%;
+  height: 350px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #116d31;
+  color: white;
+  transform: rotateY(180deg);
+  font-size: 30px;
+  text-align: center;
+  padding: 0 18px;
+  width: 100%;
+  height: 100%;
+}
+
+h2 {text-align: center}
+p {text-align: center; font-size: 25px}
+
+
+</style>
+</head>
+<body>
+
+<div class="about-section">
+  <h1>Books</h1>
+  <p>Learn vocabulary words from books</p>
+</div>
+<h2 style="text-align:center"></h2>
+<div class="row">
+    {% for book in book_items %}
+    <div class="column">
+    <div class="card">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="{{book[2]}}" alt="book" style="height:350px;">
+              </div>
+              <div class="flip-card-back">
+                   <p>{{book[3]}}</p>
+              </div>
+            </div>
+          </div>
+      <!-- <img src="{{book[2]}}" alt="cover_image" style="width:100%"> -->
+    <div class="container">
+        <h2>{{book[0][:-1]}}</h2>
+        <button type="button" class="collapsible"> Vocabulary </button>
+        <div class="content">
+            <ul>
+            {% for word in book[1] %}
+                <p> <a href="{{word}}"> {{word.title()}} </a></p>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+   </div>
+  </div>
+  {% endfor %}
+</div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        console.log(content.style.display);
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+</script>
+</body>
+</html>

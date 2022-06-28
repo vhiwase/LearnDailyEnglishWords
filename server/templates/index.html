@@ -1,31 +1,101 @@
+<!DOCTYPE html>
 <html>
-<style type="text/css">
-    .custom-centered{
-        margin:0 auto;
-        text-align: center;
-    }
-    .custom-left{
-        margin:0 auto;
-        text-align: left;
-    }
-    h1 {text-align: center; font-family:"verdana"}
-    h2 {text-align: center; font-family:"Inter"}
-    h3 {text-align: center; font-family:"verdana"}
-    h4 {text-align: center; font-family:"Courier New"}
-    p {text-align: center; font-family:"Open Sans"}
-    div {text-align: left; font-family:"verdana"}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.custom-centered{
+    margin:0 auto;
+    text-align: center;
+}
+.custom{
+    margin-left:300px;
+    margin-right:300px;
+    margin-top:30px;
+    margin-bottom:30px;
+    background-color: #ffffff;
+    font-family:"verdana"
+}
+.about-section {
+    margin-left:300px;
+    margin-right:300px;
+    margin-top:30px;
+    margin-bottom:30px;
+    text-align: center;
+    background-color: white;
+    font-family:"verdana"
+}
+body {
+font-family: Arial, Helvetica, sans-serif;
+margin: 0;
+}
+/* Arial, Helvetica, sans-serif */
+h1 {text-align: center; font-family:"verdana"}
+h2 {text-align: center; font-family:"verdana"}
+h3 {text-align: center; font-family:"verdana"}
+h4 {text-align: center; font-family:"verdana"}
+p {text-align: center; font-size: 25px; font-family:"verdana"}
+div {text-align: left; font-size: 25px; font-family:"verdana"}
 </style>
 <head>
     <title>
         Learn English Words Daily
     </title>
 </head>
-<body>
-    <form action="/" method="post" class="custom-centered">
-        <input type="search" name="text", style="height:35px; width:600px;", placeholder="Start typing to look up a word...", required
-        minlength="1" maxlength="50">
-        <input type="submit", value="submit", class="btn btn-primary">
-    </form>
+<body >
+    <div class="about-section">
+        <h1>Learn Daily English Words</h1>
+        <form class="example" action="/" method="post" style="margin:auto;max-width:500px;font-family:verdana">
+            <input type="text" placeholder="Start typing to look up a word.." name="text" required
+            minlength="1" maxlength="50">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <!-- <form action="/" method="post" class="custom-centered">
+            <input type="search" name="text", style="height:35px; width:600px;", placeholder="Start typing to look up a word...", required
+            minlength="1" maxlength="50">
+            <input type="submit", value="submit", class="btn btn-primary">
+        </form> -->
+    </div>
+    <div class="custom">
     <div><h1>{{word}}</h1></div>
     <h2>{{description}}</h2>
     <div>
@@ -47,7 +117,7 @@
     <div>
         <p>part_of_speech : {{part_of_speech}}</p>
     </div>
-    <h3> Examples in Sentence </h3>
+        <h3> Examples in Sentence </h3>
     <div>
         {% for example in examples %}
         <p> {{example}} </p>
@@ -58,5 +128,6 @@
         <img src="{{ local_image_file }}" alt="local_image_file">
         {% endfor %}
     </div>
+</div>
 </body>
 </html>

@@ -4,6 +4,7 @@ import json
 import pathlib
 import ssl
 import time
+import re
 from collections import defaultdict
 
 # from io import BytesIO
@@ -26,10 +27,7 @@ app = Flask(__name__)
 ROOT_PATH = pathlib.Path(__file__)
 BASE_PATH = ROOT_PATH.parent
 DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()
-
-if pathlib.Path(DATABASE_PATH).is_file():
-    with open(DATABASE_PATH, "r") as f:
-        vocabulary_dict = json.load(f)
+IMPORTANT_WORDS_PATH = (BASE_PATH / "important_words.json").absolute().as_posix()
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -221,6 +219,44 @@ def imagescrape(search_term):
         print(e)
 
 
+@app.route("/book", methods=["GET", "POST"])
+def book():
+    if pathlib.Path(IMPORTANT_WORDS_PATH).is_file():
+        with open(IMPORTANT_WORDS_PATH, "r") as f:
+            important_words_dict = json.load(f)
+        book_words_list = important_words_dict["book_words_list"]
+        book_items = []
+        for book in book_words_list:
+            if "blockquote" in book:
+                blockquote = book["blockquote"]
+            else:
+                blockquote = ""
+            if "book_name" in book:
+                book_name = book["book_name"]
+            else:
+                book_name = ""
+            if "book_words" in book:
+                book_words = book["book_words"]
+            else:
+                book_words = ""
+            if "cover_image_link" in book:
+                cover_image_link = book["cover_image_link"]
+                match = re.search("[?]width=[0-9]{1,3}", cover_image_link)
+                match_span = match.span()
+                first_index = match_span[0]
+                s_image = cover_image_link[:first_index]
+                last_index = match_span[-1]
+                l_image = cover_image_link[last_index:]
+                cover_image_link = s_image + "?width=500" + l_image
+            else:
+                cover_image_link = "https://cdn.vocab.com/units/kpfxttrx/feature.png?width=500&v=1812a20f6cb"
+            book_item = [book_name, book_words, cover_image_link, blockquote]
+            book_items.append(book_item)
+    else:
+        book_words_list = []
+    return render_template("book.html", book_items=book_items)
+
+
 @app.route("/check")
 def check():
     return "Application is up"
@@ -255,6 +291,9 @@ def get_request():
 def post_request(word):
     word = word.strip()
     word = word.lower()
+    if pathlib.Path(DATABASE_PATH).is_file():
+        with open(DATABASE_PATH, "r") as f:
+            vocabulary_dict = json.load(f)
     if not (word in vocabulary_dict.keys()):
         # image_folder = BASE_PATH / "temp"
         # os.makedirs(image_folder, exist_ok=True)
@@ -264,8 +303,12 @@ def post_request(word):
         image_links = imagescrape(word)
         word_meaning["image_links"] = image_links
         vocabulary_dict[word.lower()] = word_meaning
-        with open(DATABASE_PATH, "w") as f:
-            f.write(json.dumps(vocabulary_dict, indent=4))
+        if (
+            vocabulary_dict[word.lower()]["description"]
+            != "We're sorry, your request has been denied."
+        ):
+            with open(DATABASE_PATH, "w") as f:
+                f.write(json.dumps(vocabulary_dict, indent=4))
     else:
         word_meaning = vocabulary_dict[word]
     word_meaning["word"] = word.upper()
@@ -307,6 +350,11 @@ def post_request(word):
 def api_request(word):
     word = word.strip()
     word = word.lower()
+    if pathlib.Path(DATABASE_PATH).is_file():
+        with open(DATABASE_PATH, "r") as f:
+            vocabulary_dict = json.load(f)
+    else:
+        vocabulary_dict = {}
     if not (word in vocabulary_dict.keys()):
         word_meaning = get_json(word)
         word_meaning["word"] = word
@@ -314,8 +362,12 @@ def api_request(word):
         word_meaning["image_links"] = image_links
         image_links = word_meaning["image_links"]
         vocabulary_dict[word.lower()] = word_meaning
-        with open(DATABASE_PATH, "w") as f:
-            f.write(json.dumps(vocabulary_dict, indent=4))
+        if (
+            vocabulary_dict[word.lower()]["description"]
+            != "We're sorry, your request has been denied."
+        ):
+            with open(DATABASE_PATH, "w") as f:
+                f.write(json.dumps(vocabulary_dict, indent=4))
     else:
         word_meaning = vocabulary_dict[word]
     return word_meaning
