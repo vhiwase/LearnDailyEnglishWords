@@ -6,6 +6,7 @@ import ssl
 import time
 import re
 from collections import defaultdict
+import random
 
 # from io import BytesIO
 # from shutil import rmtree
@@ -219,7 +220,19 @@ def imagescrape(search_term):
         print(e)
 
 
-@app.route("/book", methods=["GET", "POST"])
+@app.route("/next_word", methods=["GET", "POST"])
+def next_word():
+    if pathlib.Path(DATABASE_PATH).is_file():
+        with open(DATABASE_PATH, "r") as f:
+            vocabulary_dict = json.load(f)
+            random_number = random.randint(0, len(vocabulary_dict))
+            word = sorted(vocabulary_dict.keys())[random_number]
+        return redirect(url_for("post_request", word=word))
+    else:
+        redirect(url_for("book"))
+
+
+@app.route("/book_read", methods=["GET", "POST"])
 def book():
     if pathlib.Path(IMPORTANT_WORDS_PATH).is_file():
         with open(IMPORTANT_WORDS_PATH, "r") as f:
@@ -253,7 +266,7 @@ def book():
             book_item = [book_name, book_words, cover_image_link, blockquote]
             book_items.append(book_item)
     else:
-        book_words_list = []
+        book_items = []
     return render_template("book.html", book_items=book_items)
 
 
@@ -291,6 +304,8 @@ def get_request():
 def post_request(word):
     word = word.strip()
     word = word.lower()
+    # if word == "book_read":
+    #     redirect(url_for("book"))
     if pathlib.Path(DATABASE_PATH).is_file():
         with open(DATABASE_PATH, "r") as f:
             vocabulary_dict = json.load(f)

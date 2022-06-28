@@ -61,7 +61,8 @@ RUN pip install selenium==3.8.0
 # COPY server/migrations $SERVER_HOME/migrations
 COPY ./server/app.py $SERVER_HOME
 COPY ./server/database.json $SERVER_HOME
-COPY ./server/templates/ $SERVER_HOME/templates
+COPY ./server/important_words.json $SERVER_HOME
+COPY ./server/templates/ $SERVER_HOME/templates/
 # chown all the files to the app user
 RUN chown -R app:app $SERVER_HOME
 # change to the app user

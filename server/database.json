@@ -33089,5 +33089,400 @@
             "https://image.shutterstock.com/image-vector/set-isolated-hints-icons-tips-260nw-1598014516.jpg",
             "https://image.shutterstock.com/image-photo/faceless-woman-breaks-arm-through-260nw-1854255277.jpg"
         ]
+    },
+    "book": {
+        "description": "For a lot of kids, \"Harry Potter and the Sorcerer's Stone\" was their first experience of really falling in love with a book, or a collection of printed words or illustrations bound together.",
+        "shorts": [
+            "(noun) physical objects consisting of a number of pages bound together",
+            "(verb) arrange for and reserve (something for someone else) in advance"
+        ],
+        "long": "Book is a widely-known word with a whole lot of less well-known meanings. The noun book can refer to a bunch of pages bound together, as in a book you read, but also a book of tickets or stamps, a section of a larger work of literature (like a book of the Bible), or the written script of a stage play. Book can also be a verb meaning \"to record information about a criminal suspect\" or \"to reserve,\" which you could use to say, \"Let's book a room at the nicest hotel in Maui this winter.\"",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [
+            "Flatnose cast a worried look over the books at his feet.",
+            "His brother would drive Finn back to where he\u2019d lost the books.",
+            "I carried too much of everything\u2014too much food, too many books, tools enough to assemble a submarine.",
+            "So I went in her room and took a book with a faded blue cover, called Equiano\u2019s Travels, or the Life of Gust aims Vassa the African."
+        ],
+        "part_of_speech": [
+            "noun",
+            "verb"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/stacks-books-reading-pile-textbooks-260nw-1988002235.jpg",
+            "https://image.shutterstock.com/image-vector/realistic-mockups-book-blank-cover-260nw-1929033314.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-hardcover-books-flying-on-260nw-1618124554.jpg",
+            "https://image.shutterstock.com/image-vector/books-reading-set-textbooks-academic-260nw-1355950388.jpg",
+            "https://image.shutterstock.com/image-vector/continuous-one-line-drawing-open-260nw-1489544150.jpg",
+            "https://image.shutterstock.com/image-vector/book-icon-sign-design-260nw-553945819.jpg",
+            "https://image.shutterstock.com/image-vector/continuous-one-line-drawing-open-260nw-1892658868.jpg",
+            "https://image.shutterstock.com/image-photo/book-260nw-732217162.jpg",
+            "https://image.shutterstock.com/image-vector/banner-book-festival-open-books-260nw-1899104866.jpg",
+            "https://image.shutterstock.com/image-vector/vector-mock-book-white-blank-260nw-1034044099.jpg",
+            "https://image.shutterstock.com/image-illustration/watercolor-painting-book-pencil-260nw-1923477863.jpg",
+            "https://image.shutterstock.com/image-vector/set-flyers-bookstore-bookshop-library-260nw-1969475506.jpg",
+            "https://image.shutterstock.com/image-vector/mockup-blank-cover-magazine-book-260nw-1390512062.jpg",
+            "https://image.shutterstock.com/image-vector/novel-reading-open-hardcover-book-260nw-1937886859.jpg",
+            "https://image.shutterstock.com/image-vector/book-icon-vector-on-white-260nw-1917883307.jpg",
+            "https://image.shutterstock.com/image-photo/education-learning-concept-opening-book-260nw-794015686.jpg"
+        ]
+    },
+    "favicon.ico": {
+        "description": "Try the world's fastest, smartest dictionary: Start typing a word and you'll see the definition. Unlike most online dictionaries, we want you to find your word's meaning quickly. We don't care how many ads you see or how many pages you view. In fact, most of the time you'll find the word you are looking for after typing only one or two letters.",
+        "shorts": [],
+        "long": "",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [
+            "That was the tiny island with the black volcanic rocks, a wildlife preserve with beaches.",
+            "There was no way this little piece of volcanic garbage could be as bad as what they\u2019d been through.",
+            "The great volcanic plumes of Io reach so high that they are close to injecting their atoms directly into the space around Jupiter.",
+            "It turned out that under the western United States there was a huge cauldron of magma, a colossal volcanic hot spot which erupted cataclysmically every 600,000 years or so."
+        ],
+        "part_of_speech": [],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-simple-260nw-2165384475.jpg",
+            "https://image.shutterstock.com/image-vector/png-ico-file-conversion-multi-260nw-2143357039.jpg",
+            "https://image.shutterstock.com/image-vector/head-skull-super-hero-blue-260nw-2134372057.jpg",
+            "https://image.shutterstock.com/image-vector/head-cat-mecha-blue-vektor-260nw-2133992799.jpg",
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-flat-260nw-2129312594.jpg",
+            "https://image.shutterstock.com/image-vector/png-ico-file-conversion-flat-260nw-2050456319.jpg",
+            "https://image.shutterstock.com/image-vector/jpg-ico-file-conversion-vivid-260nw-2128193975.jpg",
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-icons-260nw-2125696010.jpg",
+            "https://image.shutterstock.com/image-vector/png-ico-file-conversion-flat-260nw-2119595144.jpg",
+            "https://image.shutterstock.com/image-vector/jpg-ico-file-conversion-simple-260nw-2092877716.jpg",
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-multi-260nw-2088759313.jpg",
+            "https://image.shutterstock.com/image-vector/png-ico-file-conversion-flat-260nw-2075692501.jpg",
+            "https://image.shutterstock.com/image-vector/png-ico-file-conversion-multi-260nw-2056957859.jpg",
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-flat-260nw-2056957901.jpg",
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-vivid-260nw-2056216124.jpg",
+            "https://image.shutterstock.com/image-vector/eps-ico-file-conversion-multi-260nw-2052305867.jpg"
+        ]
+    },
+    "]": {
+        "description": "Try the world's fastest, smartest dictionary: Start typing a word and you'll see the definition. Unlike most online dictionaries, we want you to find your word's meaning quickly. We don't care how many ads you see or how many pages you view. In fact, most of the time you'll find the word you are looking for after typing only one or two letters.",
+        "shorts": [],
+        "long": "",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [
+            "A method of bargaining so that you can reach an agreement.",
+            "A girl with a blue dress brings meals three times a day and never talks to me.",
+            "A few smudged windows let in the hazy glow of the gas lanterns out on the street.",
+            "A green fountain of magnetic light shot up into the sky, its edges rimmed with sparks."
+        ],
+        "part_of_speech": [],
+        "image_links": [
+            "https://image.shutterstock.com/image-illustration/shop-now-buy-2-get-260nw-2145415977.jpg",
+            "https://image.shutterstock.com/image-illustration/shop-now-sale-summer-season-260nw-2145406049.jpg",
+            "https://image.shutterstock.com/image-illustration/season-offer-flash-sale-20-260nw-2145414749.jpg",
+            "https://image.shutterstock.com/image-illustration/shop-now-season-offer-flash-260nw-2145415297.jpg",
+            "https://image.shutterstock.com/image-vector/lettering-number-17-brooklyn-new-260nw-1907356654.jpg",
+            "https://image.shutterstock.com/image-illustration/shop-now-30-off-special-260nw-2145419197.jpg",
+            "https://image.shutterstock.com/image-vector/floral-vector-isolated-compositions-on-260nw-1920524039.jpg",
+            "https://image.shutterstock.com/image-illustration/sale-20-off-extra-shop-260nw-2145406947.jpg",
+            "https://image.shutterstock.com/image-illustration/shop-now-30-percent-off-260nw-2145405159.jpg",
+            "https://image.shutterstock.com/image-vector/decorative-flower-wavy-lines-background-260nw-2123987870.jpg",
+            "https://image.shutterstock.com/image-vector/digital-marketing-illustrations-mega-set-260nw-2126518544.jpg",
+            "https://image.shutterstock.com/image-vector/vinnytsia-ukraine-january-10-2021-260nw-2105506280.jpg",
+            "https://image.shutterstock.com/image-vector/vector-illustration-tshirt-design-slogan-260nw-2146863461.jpg",
+            "https://image.shutterstock.com/image-vector/vector-illustration-tshirt-design-slogan-260nw-2146863411.jpg",
+            "https://image.shutterstock.com/image-vector/business-concept-illustrations-mega-set-260nw-2078569612.jpg"
+        ]
+    },
+    "books": {
+        "description": "For a lot of kids, \"Harry Potter and the Sorcerer's Stone\" was their first experience of really falling in love with a book, or a collection of printed words or illustrations bound together.",
+        "shorts": [
+            "(noun) physical objects consisting of a number of pages bound together",
+            "(verb) arrange for and reserve (something for someone else) in advance"
+        ],
+        "long": "Book is a widely-known word with a whole lot of less well-known meanings. The noun book can refer to a bunch of pages bound together, as in a book you read, but also a book of tickets or stamps, a section of a larger work of literature (like a book of the Bible), or the written script of a stage play. Book can also be a verb meaning \"to record information about a criminal suspect\" or \"to reserve,\" which you could use to say, \"Let's book a room at the nicest hotel in Maui this winter.\"",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [
+            "I had two books with me, which I\u2019d meant to read on the plane.",
+            "Now it surged up again and I hungered for books, new ways of looking and seeing.",
+            "In addition to books, we were permitted to order publications necessary to our studies.",
+            "A man in shirtsleeves tells us what a marvelous book the Bible is and bemoans the fact that people buy so many inferior books when you really need just the one."
+        ],
+        "part_of_speech": [
+            "noun",
+            "verb"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/square-book-mockup-3d-vector-260nw-1902536635.jpg",
+            "https://image.shutterstock.com/image-vector/stacks-books-reading-pile-textbooks-260nw-1988002235.jpg",
+            "https://image.shutterstock.com/image-vector/blank-vertical-book-cover-template-260nw-1912374520.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-hardcover-books-flying-on-260nw-1618124554.jpg",
+            "https://image.shutterstock.com/image-vector/books-reading-set-textbooks-academic-260nw-1355950388.jpg",
+            "https://image.shutterstock.com/image-vector/holy-book-quran-icon-design-260nw-1938254173.jpg",
+            "https://image.shutterstock.com/image-vector/continuous-one-line-drawing-open-260nw-1489544150.jpg",
+            "https://image.shutterstock.com/image-vector/book-icon-sign-design-260nw-553945819.jpg",
+            "https://image.shutterstock.com/image-photo/book-260nw-732217162.jpg",
+            "https://image.shutterstock.com/image-vector/continuous-one-line-drawing-open-260nw-1892658868.jpg",
+            "https://image.shutterstock.com/image-vector/banner-book-festival-open-books-260nw-1899104866.jpg",
+            "https://image.shutterstock.com/image-illustration/opened-handbook-bookmark-reading-knowledge-260nw-1918314704.jpg",
+            "https://image.shutterstock.com/image-vector/vector-mock-book-white-blank-260nw-1034044099.jpg",
+            "https://image.shutterstock.com/image-vector/blank-vertical-book-cover-template-260nw-172777709.jpg",
+            "https://image.shutterstock.com/image-photo/education-learning-concept-opening-book-260nw-794015686.jpg",
+            "https://image.shutterstock.com/image-vector/mockup-blank-cover-magazine-book-260nw-1390512062.jpg"
+        ]
+    },
+    "ugly": {
+        "description": "Ugly means \"extremely unattractive.\" On Halloween, some people wear ugly masks as part of their scary costumes.",
+        "shorts": [
+            "(adjective) displeasing to the senses"
+        ],
+        "long": "Anything that looks or feels quite unpleasant is ugly. The adjective ugly can describe the way something or someone looks, but it can also describe behavior or actions \u2014 the ugly scene your little brother made at the toy store when he didn't get what he wanted or the ugly breakup of a friendship.  Remember that when ugly becomes uglier and ugliest, the y becomes an i.",
+        "synonym": [
+            "unattractive",
+            "disfigured",
+            "evil-looking",
+            "fugly",
+            "grotesque",
+            "monstrous",
+            "hideous",
+            "repulsive",
+            "ill-favored",
+            "ill-favoured",
+            "scrofulous",
+            "unlovely",
+            "unpicturesque",
+            "unsightly",
+            "awkward",
+            "displeasing"
+        ],
+        "antonym": [
+            "beautiful",
+            "attractive",
+            "beauteous",
+            "bonnie",
+            "bonny",
+            "comely",
+            "fair",
+            "sightly",
+            "dishy",
+            "exquisite",
+            "better-looking",
+            "fine-looking",
+            "good-looking",
+            "handsome",
+            "well-favored",
+            "well-favoured",
+            "glorious",
+            "resplendent",
+            "splendid",
+            "splendiferous",
+            "gorgeous",
+            "lovely",
+            "picturesque",
+            "pretty",
+            "pretty-pretty",
+            "pulchritudinous",
+            "ravishing",
+            "scenic",
+            "stunning",
+            "graceful",
+            "pleasing"
+        ],
+        "type_of": [],
+        "examples": [],
+        "part_of_speech": [
+            "adjective"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-photo/asian-nerd-ugly-face-holding-260nw-2136132947.jpg",
+            "https://image.shutterstock.com/image-vector/fairy-tale-ugly-ducklingvector-illustration-260nw-1484356094.jpg",
+            "https://image.shutterstock.com/image-photo/marabou-profile-ugly-beautiful-260nw-2127659927.jpg",
+            "https://image.shutterstock.com/image-photo/ugly-vegetables-on-white-background-260nw-1462228280.jpg",
+            "https://image.shutterstock.com/image-vector/fairy-tale-ugly-ducklingvector-illustration-260nw-1484355791.jpg",
+            "https://image.shutterstock.com/image-vector/fairy-tale-ugly-ducklingvector-illustration-260nw-1484356781.jpg",
+            "https://image.shutterstock.com/image-vector/beautiful-ugly-antonyms-word-card-260nw-1788670772.jpg",
+            "https://image.shutterstock.com/image-photo/funny-overweight-plump-man-duck-260nw-604738433.jpg",
+            "https://image.shutterstock.com/image-photo/ugly-vegetables-on-white-background-260nw-1462228283.jpg",
+            "https://image.shutterstock.com/image-photo/crazy-nerd-couple-funny-sweaters-260nw-162854669.jpg",
+            "https://image.shutterstock.com/image-photo/ugly-carrots-on-white-background-260nw-1461291152.jpg",
+            "https://image.shutterstock.com/image-photo/woman-passion-260nw-98093696.jpg",
+            "https://image.shutterstock.com/image-photo/closeup-hairless-mixedbreed-dog-mix-260nw-129930416.jpg",
+            "https://image.shutterstock.com/image-photo/fat-glamour-man-beard-takes-260nw-264563135.jpg",
+            "https://image.shutterstock.com/image-vector/fairy-tale-ugly-ducklingvector-illustration-260nw-1484356778.jpg",
+            "https://image.shutterstock.com/image-vector/ugly-duckling-fairy-tale-born-260nw-2143826689.jpg"
+        ]
+    },
+    "vocabulary_book": {
+        "description": "Try the world's fastest, smartest dictionary: Start typing a word and you'll see the definition. Unlike most online dictionaries, we want you to find your word's meaning quickly. We don't care how many ads you see or how many pages you view. In fact, most of the time you'll find the word you are looking for after typing only one or two letters.",
+        "shorts": [],
+        "long": "",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [
+            "Which of the following would most likely be considered part of your vocabulary?"
+        ],
+        "part_of_speech": [],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/translation-learning-read-write-workbook-260nw-2060294435.jpg",
+            "https://image.shutterstock.com/image-vector/dictionary-book-cover-translate-vocabulary-260nw-1925023541.jpg",
+            "https://image.shutterstock.com/image-photo/gronau-nrw-germany-12142021-english-260nw-2090620309.jpg",
+            "https://image.shutterstock.com/image-illustration/vocabulary-word-cloud-collage-concept-260nw-1842827428.jpg",
+            "https://image.shutterstock.com/image-photo/vocabulary-book-study-language-education-260nw-1598491066.jpg",
+            "https://image.shutterstock.com/image-vector/vocabulary-vector-icon-isolated-on-260nw-1164028624.jpg",
+            "https://image.shutterstock.com/image-vector/foreign-language-learning-books-linear-260nw-1231407460.jpg",
+            "https://image.shutterstock.com/image-photo/book-pen-close-260nw-545674852.jpg",
+            "https://image.shutterstock.com/image-vector/book-icon-vector-illustration-260nw-1233490837.jpg",
+            "https://image.shutterstock.com/image-vector/vocabulary-book-dictionary-elearning-education-260nw-2142022385.jpg",
+            "https://image.shutterstock.com/image-vector/vector-illustration-brain-colorful-books-260nw-1165691680.jpg",
+            "https://image.shutterstock.com/image-photo/open-books-on-white-background-260nw-1306818085.jpg",
+            "https://image.shutterstock.com/image-vector/vocabulary-word-count-daily-speech-260nw-2133727171.jpg",
+            "https://image.shutterstock.com/image-vector/stack-books-sketch-drawings-engrave-260nw-1505663078.jpg",
+            "https://image.shutterstock.com/image-illustration/learning-languages-online-audiobooks-concept-260nw-345187850.jpg",
+            "https://image.shutterstock.com/image-vector/kids-notebook-exercise-book-cover-260nw-2060293841.jpg"
+        ]
+    },
+    "shape": {
+        "description": "The form of something gives it its shape. Basic shapes include the square, the circle, and the triangle. You may have a nose the shape of a ski slope.",
+        "shorts": [
+            "(noun) a perceptual structure",
+            "(verb) give shape or form to"
+        ],
+        "long": "When you admire someone's shape, you're admiring their form, or their body. When you're out of shape or vowing to get back into shape, you're using shape to refer to your physical stamina or overall health. You can shape something by giving it form, as in \"shape the dough into a braided twist,\" or influence someone, as in a teacher who shapes young minds.",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [],
+        "part_of_speech": [
+            "noun",
+            "verb"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/fluid-graphic-shape-element-design-260nw-1687140667.jpg",
+            "https://image.shutterstock.com/image-vector/set-100-geometric-shapes-memphis-260nw-1511671634.jpg",
+            "https://image.shutterstock.com/image-vector/liquid-abstract-shapes-set-isolated-260nw-1933632707.jpg",
+            "https://image.shutterstock.com/image-vector/geometric-shapes-black-silhouette-icon-260nw-1937169268.jpg",
+            "https://image.shutterstock.com/image-vector/random-blotch-inkblot-organic-blob-260nw-1612925449.jpg",
+            "https://image.shutterstock.com/image-vector/black-labels-set-different-geometric-260nw-1933263665.jpg",
+            "https://image.shutterstock.com/image-vector/set-100-geometric-shapes-memphis-260nw-1607199109.jpg",
+            "https://image.shutterstock.com/image-vector/modern-abstract-background-premium-vector-260nw-1928870975.jpg",
+            "https://image.shutterstock.com/image-vector/liquid-colorful-triangle-gradient-spot-260nw-1922440106.jpg",
+            "https://image.shutterstock.com/image-vector/set-modern-abstract-vector-banners-260nw-1198684579.jpg",
+            "https://image.shutterstock.com/image-vector/abstract-colorful-blobs-set-isolated-260nw-1901168740.jpg",
+            "https://image.shutterstock.com/image-vector/set-abstract-modern-graphic-elements-260nw-1162085851.jpg",
+            "https://image.shutterstock.com/image-vector/vector-set-minimal-backgrounds-organic-260nw-1584613123.jpg",
+            "https://image.shutterstock.com/image-vector/colorful-template-banner-gradient-color-260nw-1913774386.jpg",
+            "https://image.shutterstock.com/image-vector/set-100-geometric-shapes-mega-260nw-1693125049.jpg",
+            "https://image.shutterstock.com/image-vector/set-three-seamless-patterns-hand-260nw-1429336448.jpg"
+        ]
+    },
+    "battery": {
+        "description": "Battery is (among other things) physical attack or assault: \u201cHe was arrested for battery after he hit his manager several times on the head with a large flashlight.\u201d",
+        "shorts": [
+            "(noun) a collection of related things intended for use together"
+        ],
+        "long": "When you think of a battery, you probably envision the electrical devices that allow you to power everything in your life \u2014 from your car to your cell phone. However, battery has a whole host of meanings. In addition to beating someone as in \"assault and battery,\" it also refers to a collection of artillery or guns: \u201cHe\u2019s collected a battery of weapons; we hope he doesn\u2019t intend to use them.\" Beyond guns, a battery can also refer to any group or collection of similar things: \u201cShe was subjected to a battery of tests, designed to determine whether she was a genius or just plain smart.\u201d",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [],
+        "part_of_speech": [
+            "noun"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/battery-charging-point-charge-indicator-260nw-1194188470.jpg",
+            "https://image.shutterstock.com/image-vector/simple-set-batteries-related-vector-260nw-428770594.jpg",
+            "https://image.shutterstock.com/image-vector/battery-icons-set-260nw-158825678.jpg",
+            "https://image.shutterstock.com/image-vector/alkaline-batteries-realistic-set-different-260nw-1914476209.jpg",
+            "https://image.shutterstock.com/image-photo/electric-car-lithium-battery-pack-260nw-1801816357.jpg",
+            "https://image.shutterstock.com/image-illustration/3d-fast-charge-neon-lithium-260nw-1988156687.jpg",
+            "https://image.shutterstock.com/image-vector/abstract-battery-charging-icon-form-260nw-1048927511.jpg",
+            "https://image.shutterstock.com/image-vector/discharged-fully-charged-battery-smartphone-260nw-515226043.jpg",
+            "https://image.shutterstock.com/image-vector/set-battery-different-level-charge-260nw-1552126346.jpg",
+            "https://image.shutterstock.com/image-illustration/lithium-ion-battery-starts-recharging-260nw-1962551965.jpg",
+            "https://image.shutterstock.com/image-vector/vector-gold-black-realistic-alkaline-260nw-1170883456.jpg",
+            "https://image.shutterstock.com/image-illustration/battery-charge-level-set-illustration-260nw-1938744340.jpg",
+            "https://image.shutterstock.com/image-illustration/lithium-ion-battery-starts-recharging-260nw-1963852834.jpg",
+            "https://image.shutterstock.com/image-vector/abstract-low-poly-battery-charge-260nw-1856625622.jpg",
+            "https://image.shutterstock.com/image-photo/selective-focus-electric-car-lithium-260nw-1868935168.jpg",
+            "https://image.shutterstock.com/image-vector/charger-phases-illustration-simple-flat-260nw-759248467.jpg"
+        ]
+    },
+    "muse": {
+        "description": "As a verb, to muse is to consider something thoughtfully. As a noun, it means a person \u2014 especially a woman \u2014 who is a source of artistic inspiration.",
+        "shorts": [
+            "(verb) reflect deeply on a subject",
+            "(noun) the source of an artist's inspiration"
+        ],
+        "long": "In mythology, the Muses were nine goddesses who symbolized the arts and sciences. Today, a muse is a person who serves as an artist's inspiration. Often filmmakers talk about a certain actor being a muse \u2014 meaning the actor inspired a movie. Writers, painters, musicians, and other artists have muses. Muse can also refer to thinking deeply. If you muse about something, you're giving it serious thought. You can't muse in five seconds. People muse on certain ideas for years.",
+        "synonym": [],
+        "antonym": [],
+        "type_of": [],
+        "examples": [
+            "\u201cGood times,\u201d Mark mused as he got more comfortable.",
+            "\u201cIndeed, sirs,\u201d mused another, \u201cis love grounded in the body or in the intellect?\u201d",
+            "After a moment Ladd Devine Senior appeared in the doorway behind his grandson, laid powerful hands gently on the boy\u2019s shoulders, and jovially mused.",
+            "\u201cBut why worry, tomorrow everyone will have cakes and beer. Aye,\u201d he mused, \u201cGreat Osiris is ready to loose his flood over the land once more. Seen any hangings lately?\u201d"
+        ],
+        "part_of_speech": [
+            "verb",
+            "noun"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-vector/greek-mythology-muses-clio-euterpe-260nw-1812722326.jpg",
+            "https://image.shutterstock.com/image-photo/successful-satisfied-young-european-woman-260nw-2125466831.jpg",
+            "https://image.shutterstock.com/image-vector/arts-collection-abstract-creative-self-260nw-1773463289.jpg",
+            "https://image.shutterstock.com/image-illustration/makeup-beautiful-woman-fashion-illustration-260nw-1494510815.jpg",
+            "https://image.shutterstock.com/image-photo/antique-chair-old-typewriter-retro-260nw-1386879365.jpg",
+            "https://image.shutterstock.com/image-illustration/beautiful-woman-illustration-watercolor-painting-260nw-1819949402.jpg",
+            "https://image.shutterstock.com/image-vector/modern-fashion-pattern-continuous-line-260nw-1361763536.jpg",
+            "https://image.shutterstock.com/image-vector/all-nine-muses-greek-mythology-260nw-686331793.jpg",
+            "https://image.shutterstock.com/image-illustration/beautiful-woman-butterfly-fashion-illustration-260nw-1292825215.jpg",
+            "https://image.shutterstock.com/image-vector/angel-fresco-by-rafael-santi-260nw-1396268627.jpg",
+            "https://image.shutterstock.com/image-vector/muse-lettering-isolated-on-white-260nw-1056640820.jpg",
+            "https://image.shutterstock.com/image-illustration/glove-beautiful-woman-fashion-illustration-260nw-1215719365.jpg",
+            "https://image.shutterstock.com/image-vector/creative-person-searching-inspiration-vector-260nw-1855064833.jpg",
+            "https://image.shutterstock.com/image-vector/greek-mythology-muse-tragedy-drama-260nw-1715605309.jpg",
+            "https://image.shutterstock.com/image-illustration/watercolor-painting-fantasy-female-portrait-260nw-1937904856.jpg",
+            "https://image.shutterstock.com/image-illustration/beautiful-woman-fashion-illustration-watercolor-260nw-1152960401.jpg"
+        ]
+    },
+    "regent": {
+        "description": "In a monarchy, if the king gets too sick to rule his country, a regent steps in to run things temporarily.",
+        "shorts": [
+            "(noun) someone who rules during the absence or incapacity or minority of the country's monarch",
+            "(adjective) acting or functioning as a regent or ruler"
+        ],
+        "long": "When kings or queens aren't able to do their jobs \u2014 because they're ill, or often because they are children \u2014 trusted advisers called regents fill in. You can think of a regent as a substitute monarch. There's also a more permanent kind of regent who helps to run a business or university and can also be called a trustee or board member. In Latin, regent means \"ruling,\" from the verb regere, \"to rule.\"",
+        "synonym": [
+            "powerful"
+        ],
+        "antonym": [],
+        "type_of": [],
+        "examples": [],
+        "part_of_speech": [
+            "noun",
+            "adjective"
+        ],
+        "image_links": [
+            "https://image.shutterstock.com/image-photo/london-uk-23-march-2020-260nw-1704195256.jpg",
+            "https://image.shutterstock.com/image-photo/row-after-union-jacks-hang-260nw-2160060021.jpg",
+            "https://image.shutterstock.com/image-photo/regent-street-london-england-17th-260nw-1936311169.jpg",
+            "https://image.shutterstock.com/image-photo/regent-honeyeater-perched-on-branch-260nw-1806031945.jpg",
+            "https://image.shutterstock.com/image-photo/london-uk1062022-union-jack-flag-260nw-2162931475.jpg",
+            "https://image.shutterstock.com/image-photo/regent-honeyeater-perched-on-branch-260nw-1948964368.jpg",
+            "https://image.shutterstock.com/image-photo/aerial-view-regents-park-london-260nw-1739303267.jpg",
+            "https://image.shutterstock.com/image-photo/london-uk-19th-february-2021-260nw-1922094050.jpg",
+            "https://image.shutterstock.com/image-photo/underground-station-sign-on-regent-260nw-2160446201.jpg",
+            "https://image.shutterstock.com/image-photo/colorful-houses-new-regent-street-260nw-2103746018.jpg",
+            "https://image.shutterstock.com/image-photo/vancouver-british-columbia-canadamay-17-260nw-2158417605.jpg",
+            "https://image.shutterstock.com/image-photo/critically-endangered-australian-regent-honeyeater-260nw-1992152789.jpg",
+            "https://image.shutterstock.com/image-photo/luxembourg-palace-jardin-du-gardens-260nw-2063740421.jpg",
+            "https://image.shutterstock.com/image-photo/london-uk-september-15-2018-260nw-2086105102.jpg",
+            "https://image.shutterstock.com/image-photo/peaceful-scenery-fountain-regents-park-260nw-752869483.jpg",
+            "https://image.shutterstock.com/image-photo/london-uk-june-03-2022-260nw-2165008781.jpg"
+        ]
     }
 }
