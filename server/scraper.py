@@ -16,6 +16,8 @@ with open(JSON_PATH, "r") as f:
     vocabulary_dict = json.load(f)
     vocabulary_list = vocabulary_dict["links_list"]
 
+vocabulary_list = vocabulary_list[:5]
+
 book_words_list = []
 link_words = defaultdict(list)
 all_words = []
@@ -57,4 +59,4 @@ final_dictionary["link_words"] = link_words
 final_dictionary["all_words"] = all_words
 
 with open(OUTPUT_JSON_PATH, "w") as f:
-    f.write(json.dumps(final_dictionary))
+    f.write(json.dumps(final_dictionary, indent=4))
