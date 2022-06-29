@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 
 .button {
-  padding: 15px 25px;
-  font-size: 24px;
+  padding: 1.5rem 2.5rem;
+  font-size: 2.4rem;
   text-align: center;
   cursor: pointer;
   outline: none;
   color: #fff;
   background-color: #04AA6D;
   border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
+  border-radius: 1.5rem;
+  box-shadow: 0 .9rem #999;
 }
 
 .button:hover {background-color: #3e8e41}
 
 .button:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  box-shadow: 0 .5rem #666;
+  transform: translateY(.4rem);
 }
 
 body {
@@ -36,9 +36,9 @@ margin: 0;
 }
 
 form.example input[type=text] {
-  padding: 10px;
-  font-size: 24px;
-  border: 1px solid grey;
+  padding: 1.0rem;
+  font-size: 2.4rem;
+  border: .1rem solid grey;
   float: left;
   width: 80%;
   background: #f1f1f1;
@@ -47,11 +47,11 @@ form.example input[type=text] {
 form.example button {
   float: left;
   width: 10%;
-  padding: 10px;
+  padding: 1.0rem;
   background: #2196F3;
   color: white;
-  font-size: 24px;
-  border: 1px solid grey;
+  font-size: 2.4rem;
+  border: .1rem solid grey;
   border-left: none;
   cursor: pointer;
 }
@@ -71,42 +71,142 @@ form.example::after {
     text-align: center;
 }
 .custom{
-    margin-left:20px;
-    margin-right:20px;
-    margin-top:30px;
-    margin-bottom:30px;
+    margin-left:2.0rem;
+    margin-right:2.0rem;
+    margin-top:3.0rem;
+    margin-bottom:3.0rem;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     font-family:"verdana"
 }
 .about-section {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 .4rem .8rem 0 rgba(0,0,0,0.2);
     text-align: center;
     background-color: #ffffff;
     font-family:"verdana";
     /* width: 98.45%; */
     width: 100%;
     position: fixed;
-    height: 150px;
+    height: 15.0rem;
     top: 0;
     left: 0;
     right: 0;
 }
 
 .round {
-    border-radius: 15px;
-    border: 1px #000 solid;
-    padding: 5px 5px 5px 25px;
+    border-radius: 1.5rem;
+    border: .1rem #000 solid;
+    padding: .5rem .5rem .5rem 2.5rem;
 }
-
 
 /* Arial, Helvetica, sans-serif */
 h1 {text-align: center; font-family:"verdana"}
 h2 {text-align: center; font-family:"verdana"}
 h3 {text-align: center; font-family:"verdana"}
 h4 {text-align: center; font-family:"verdana"}
-p {text-align: center; font-size: 25px; font-family:"verdana"}
-div {text-align: left; font-size: 25px; font-family:"verdana"}
+p {text-align: center; font-size: 2.5rem; font-family:"verdana"}
+div {text-align: left; font-size: 2.5rem; font-family:"verdana"}
+
+
+@media(max-width:998px){
+  html {
+    font-size: 45%;
+  }
+}
+
+@media(max-width:768px){
+  html {
+    font-size: 45%;
+  }
+}
+
+@media(max-width:2560px){
+  html {
+    font-size: 60%;
+  }
+}
+
+@media(max-width:1920px){
+  html {
+    font-size: 50%;
+  }
+}
+
+@media(max-width:1680px){
+  html {
+    font-size: 45%;
+  }
+}
+
+@media(max-width:1600px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1440px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1400px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1366px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1360px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1280px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1152px){
+  html {
+    font-size: 50%;
+  }
+}
+
+@media(max-width:1024px){
+  html {
+    font-size: 50%;
+  }
+}
+
+@media(max-width:800px){
+  html {
+    font-size: 35%;
+  }
+}
+
+@media(max-height:600px){
+  html {
+    font-size: 28%;
+  }
+}
+
+.image {
+  border-radius: .8rem; 
+  box-shadow: 0 .4rem .8rem 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  padding: 1.0rem 2.0rem;
+  object-fit: cover;
+  vertical-align: top;
+}
+
 </style>
 <head>
     <title>
@@ -167,7 +267,7 @@ div {text-align: left; font-size: 25px; font-family:"verdana"}
     <br>
     <div>
         {% for local_image_file in image_links %}
-        <img src="{{ local_image_file }}" alt="local_image_file">
+        <img src="{{ local_image_file }}" alt="local_image_file"  class="image">
         {% endfor %}
     </div>
 </div>
