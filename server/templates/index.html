@@ -37,7 +37,7 @@ margin: 0;
 
 form.example input[type=text] {
   padding: 10px;
-  font-size: 17px;
+  font-size: 24px;
   border: 1px solid grey;
   float: left;
   width: 80%;
@@ -46,11 +46,11 @@ form.example input[type=text] {
 
 form.example button {
   float: left;
-  width: 20%;
+  width: 10%;
   padding: 10px;
   background: #2196F3;
   color: white;
-  font-size: 17px;
+  font-size: 24px;
   border: 1px solid grey;
   border-left: none;
   cursor: pointer;
@@ -71,21 +71,34 @@ form.example::after {
     text-align: center;
 }
 .custom{
-    margin-left:500px;
-    margin-right:500px;
+    margin-left:20px;
+    margin-right:20px;
     margin-top:30px;
     margin-bottom:30px;
     background-color: #ffffff;
+    color: rgb(0, 0, 0);
     font-family:"verdana"
 }
 .about-section {
-    margin-bottom:30px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     text-align: center;
-    background-color: transparent;
+    background-color: #ffffff;
     font-family:"verdana";
-    position: fixed;
+    /* width: 98.45%; */
     width: 100%;
+    position: fixed;
+    height: 150px;
+    top: 0;
+    left: 0;
+    right: 0;
 }
+
+.round {
+    border-radius: 15px;
+    border: 1px #000 solid;
+    padding: 5px 5px 5px 25px;
+}
+
 
 /* Arial, Helvetica, sans-serif */
 h1 {text-align: center; font-family:"verdana"}
@@ -107,10 +120,10 @@ div {text-align: left; font-size: 25px; font-family:"verdana"}
             <a href="/book_read" style='text-decoration:none;' class="button">Book Read</a>
           </th>
           <th>
-            <form class="example" action="/" method="post" style="margin:auto;max-width:500px;font-family:verdana;">
+            <form class="example" action="/" method="post" style="margin:auto;font-family:verdana;">
                 <input type="text" placeholder="Start typing to look up a word.." name="text" required
-                minlength="1" maxlength="50">
-                <button type="submit"><i class="fa fa-search"></i></button>
+                minlength="1" maxlength="50" class="round">
+                <button type="submit" class="round"><i class="fa fa-search"></i></button>
             </form>
           </th>
           <th>
@@ -119,6 +132,7 @@ div {text-align: left; font-size: 25px; font-family:"verdana"}
         </tr>
     </table>
     <div class="custom">
+    <br>
     <br>
     <br>
     <br>
