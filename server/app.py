@@ -28,7 +28,9 @@ import requests
 from io import BytesIO
 import base64
 
-image_numbers = 10
+IMAGE_NUMBERS = 28
+CACHE_LENGTH = 100
+stack = []
 
 app = Flask(__name__)
 
@@ -232,7 +234,11 @@ def get_json(word):
     type_of = get_type_of(page)
     antonym = get_antonym(page)
     examples = get_sentence(word)
-    json_dict["description"] = description["content"]
+    if "Try the world's fastest, smartest dictionary:".lower() in description["content"].lower():
+        description_sentence = ''
+    else:
+        description_sentence = description["content"]
+    json_dict["description"] = description_sentence
     json_dict["shorts"] = shorts
     json_dict["long"] = long_def
     json_dict["synonym"] = synonym
@@ -243,7 +249,7 @@ def get_json(word):
     return json_dict
 
 
-def imagescrape(search_term, image_numbers):
+def imagescrape(search_term, IMAGE_NUMBERS):
     try:
         url = "https://www.shutterstock.com/search/{}".format(search_term)
         driver.get(url)
@@ -255,21 +261,57 @@ def imagescrape(search_term, image_numbers):
         scraper = BeautifulSoup(data, "lxml")
         img_container = scraper.find_all("img")
         image_links = []
-        for j in range(image_numbers):
+        for j in range(IMAGE_NUMBERS):
             if img_container[j].has_attr("src"):
                 img_src = img_container[j].get("src")
                 if "logo" not in img_src:
                     image_links.append(img_src)
-        if image_links and image_links[0].startswith('https://'):
-            cropped_image_urls = []
-            for url in image_links:
-                image, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
-                cropped_image_urls.append(cropped_image_url)
-            image_links = cropped_image_urls
+        # if image_links and image_links[0].startswith('https://'):
+        #     cropped_image_urls = []
+        #     for url in image_links:
+        #         image, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
+        #         cropped_image_urls.append(cropped_image_url)
+        #     image_links = cropped_image_urls
         return image_links
     except Exception as e:
         print(e)
 
+
+def push(item, stack, length):
+    bool_list = [item[3]==s[3] for s in stack]
+    if any(bool_list):
+        item_index = bool_list.index(True)
+        stack.remove(stack[item_index])
+        stack.append(item)
+        return
+    if len(stack) == length:
+        stack.append(item)
+        stack.pop(0)
+    else:
+        stack.append(item)
+    return stack
+
+
+def pop(stack):
+    if len(stack) != 0:
+        item = stack.pop(0)
+    else:
+        item = None
+    return item
+
+
+@app.route("/check")
+def check():
+    return "Application is up"
+
+@app.route("/back")
+def back():
+    item = stack and stack[::-1][0]
+    if item:
+        word =  item[3]
+    else:
+        word = ""
+    return redirect(url_for("post_request", word=word))
 
 @app.route("/next_word", methods=["GET", "POST"])
 def next_word():
@@ -281,6 +323,11 @@ def next_word():
         return redirect(url_for("post_request", word=word))
     else:
         redirect(url_for("book"))
+
+
+@app.route("/flashback", methods=["GET", "POST"])
+def flashback():
+    return render_template("flashback.html", stack=stack[::-1])
 
 
 @app.route("/book_read", methods=["GET", "POST"])
@@ -319,11 +366,6 @@ def book():
     else:
         book_items = []
     return render_template("book.html", book_items=book_items)
-
-
-@app.route("/check")
-def check():
-    return "Application is up"
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -366,7 +408,7 @@ def post_request(word):
         # rmtree(image_folder)
         # os.makedirs(image_folder, exist_ok=True)
         word_meaning = get_json(word)
-        image_links = imagescrape(word, image_numbers)
+        image_links = imagescrape(word, IMAGE_NUMBERS)
         word_meaning["image_links"] = image_links
         vocabulary_dict[word.lower()] = word_meaning
         if (
@@ -392,10 +434,31 @@ def post_request(word):
     #     img.save(image_file, extension)
     #     local_image_files.append(image_file)
     # word_meaning["local_image_files"] = local_image_files
-    image_links = word_meaning["image_links"][:image_numbers]
+    image_links = word_meaning["image_links"][:IMAGE_NUMBERS]
     if image_links is None:
         image_links = []
     print("word_meaning", word_meaning)
+    item = word_meaning
+    image_links_index = random.randint(0, len(image_links)-1)
+    url = image_links and image_links[image_links_index]
+    _, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
+    item['cropped_image_url'] = cropped_image_url
+    
+    if word_meaning["examples"]:
+        examples_index = random.randint(0, len(word_meaning["examples"])-1)
+        example = word_meaning["examples"][examples_index]
+    else:
+        example = ''
+    if word_meaning["word"].upper() != 'FAVICON.ICO':
+        memory = [
+            cropped_image_url, 
+            word_meaning["description"],
+            example,
+            word_meaning["word"],
+            word_meaning["synonym"]
+        ]
+        
+        push(memory, stack, CACHE_LENGTH)
     return render_template(
         "index.html",
         word=word_meaning["word"],
@@ -409,6 +472,7 @@ def post_request(word):
         type_of=word_meaning["type_of"],
         examples=word_meaning["examples"],
         part_of_speech=word_meaning["part_of_speech"],
+        stack = stack[::-1]
     )
 
 
@@ -424,8 +488,8 @@ def api_request(word):
     if not (word in vocabulary_dict.keys()):
         word_meaning = get_json(word)
         word_meaning["word"] = word
-        image_links = imagescrape(word, image_numbers)
-        word_meaning["image_links"] = image_links[:image_numbers]
+        image_links = imagescrape(word, IMAGE_NUMBERS)
+        word_meaning["image_links"] = image_links[:IMAGE_NUMBERS]
         image_links = word_meaning["image_links"]
         vocabulary_dict[word.lower()] = word_meaning
         if (

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  height: 33.33%;
+  margin-bottom: 1.6rem;
+  padding: 0 .8rem;
+}
+
+.card {
+  box-shadow: 0 .4rem .8rem 0 rgba(0, 0, 0, 0.2);
+  margin: .8rem;
+}
+
+.about-section {
+  padding: 1.0rem;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 1.6rem;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 65.0rem) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+
+@media(max-width:998px){
+  html {
+    font-size: 45%;
+  }
+}
+
+@media(max-width:768px){
+  html {
+    font-size: 45%;
+  }
+}
+
+@media(max-width:2560px){
+  html {
+    font-size: 60%;
+  }
+}
+
+@media(max-width:1920px){
+  html {
+    font-size: 50%;
+  }
+}
+
+@media(max-width:1680px){
+  html {
+    font-size: 45%;
+  }
+}
+
+@media(max-width:1600px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1440px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1400px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1366px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1360px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1280px){
+  html {
+    font-size: 40%;
+  }
+}
+
+@media(max-width:1152px){
+  html {
+    font-size: 50%;
+  }
+}
+
+@media(max-width:1024px){
+  html {
+    font-size: 50%;
+  }
+}
+
+@media(max-width:800px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-height:600px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:360px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:412px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:480px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:600px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:768px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:900px){
+  html {
+    font-size: 28%;
+  }
+}
+
+@media(max-width:350px){
+  html {
+    font-size: 20%;
+  }
+}
+
+@media(max-width:330px){
+  html {
+    font-size: 20%;
+  }
+}
+
+@media(max-width:300px){
+  html {
+    font-size: 20%;
+  }
+}
+
+@media(max-width:260){
+  html {
+    font-size: 10%;
+  }
+}
+
+@media(max-width:255){
+  html {
+    font-size: 5%;
+  }
+}
+
+.collapsible {
+  margin: .8rem;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 1.8rem;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 2.5rem;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  margin: .8rem;
+  padding: 0 1.8rem;
+  display: none;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.flip-card {
+  background-color: transparent;
+  padding: 0 15rem;
+  height: 35.0rem;
+  width:55.0rem;
+  perspective: 100.0rem;
+}
+
+.flip-card-inner {
+  position: relative;
+  height: 35.0rem;
+  width:55.0rem;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 .4rem .8rem 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #116d31;
+  color: white;
+  transform: rotateY(180deg);
+  font-size: 3.0rem;
+  text-align: center;
+  padding: 0 1.8rem;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {text-align: center; font-size: 5.5rem}
+h2 {text-align: center; font-size: 3rem}
+p {text-align: center; font-size: 2.2rem}
+
+.button {
+  padding: 1.5rem 2.5rem;
+  font-size: 2.4rem;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #04AA6D;
+  border: none;
+  border-radius: 1.5rem;
+  box-shadow: 0 .9rem #999;
+}
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 4.0rem;
+  right: 5.0rem;
+  z-index: 99;
+  font-size: 2rem;
+  border: none;
+  outline: none;
+  background-color: #04AA6D;
+  color: white;
+  cursor: pointer;
+  padding: 25px;
+  border-radius: 4rem;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+</style>
+</head>
+<body>
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Got to Top</button>
+  <script>
+    //Get the button
+    var mybutton = document.getElementById("myBtn");
+    
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+    
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+
+<div class="about-section">
+  <table>
+    <tr>
+      <th><a href="/back" style='text-decoration:none; margin:auto;left:0;right:0;margin-left:20rem;box-sizing:border-box;' class="button"><i class="fa fa-backward"></i>  Back</a></th>
+      <th>
+        <h1 style="margin:auto;left:0;right:0;margin-left:80rem;margin-right:80rem;box-sizing:border-box;">Flashback</h1>
+        <p>Learn vocabulary words from flashcards</p>
+      </th>
+      <th><a href="/" style='text-decoration:none; margin:auto;left:0;right:0;margin-right:20rem;box-sizing:border-box;' class="button"><i class="fa fa-home"></i>  Home</a></th>
+    </tr>
+  </table>
+</div>
+<h2 style="text-align:center"></h2>
+<div class="row">
+    {% for item in stack %}
+    <div class="column">
+    <div class="card">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="{{item[0]}}" alt="image" style="height:35.0rem;width:55.0rem;">
+              </div>
+              <div class="flip-card-back">
+                   <p>{{item[1]}}</p>
+                   <p>For Example:</p>
+                   <p>{{item[2]}}</p>
+              </div>
+            </div>
+          </div>
+    <div class="container">
+        <h2> <a href="/{{item[3]}}" style='text-decoration:none;'>{{item[3]}}</a>
+          <p>
+            <audio controls>
+              <source src="https://d1qx7pbj0dvboc.cloudfront.net/{{item[3].lower()}}.mp3" type="audio/mp3">
+            </audio>
+          </p>
+        </h2>
+        <button type="button" class="collapsible"> Vocabulary </button>
+        <div class="content">
+            <ul>
+            {% for word in item[4] %}
+                <p> <a href="{{word}}"> {{word.title()}} </a></p>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+   </div>
+  </div>
+  {% endfor %}
+</div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        console.log(content.style.display);
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+</script>
+</body>
+</html>
