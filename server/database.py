@@ -28,9 +28,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 JSON_PATH = (BASE_PATH / "important_words.json").absolute().as_posix()
 DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()
 
-ROOT_PATH = pathlib.Path(__file__)
-BASE_PATH = ROOT_PATH.parent
-
 """
 pip install beautifulsoup4
 pip install selenium
@@ -39,6 +36,52 @@ pip install webdriver-manager
 """
 
 ssl._create_default_https_context = ssl._create_unverified_context
+
+
+from PIL import Image
+import requests
+from io import BytesIO
+import base64
+
+image_numbers = 10
+
+
+def pillow_image_to_base64_string(img):
+    buffered = BytesIO()
+    img.save(buffered, format="JPEG")
+    return base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+
+def base64_string_to_pillow_image(base64_str):
+    return Image.open(BytesIO(base64.decodebytes(bytes(base64_str, "utf-8"))))
+    
+    
+def read_image_from_url(url, left=0, top=0, right=0, bottom=0):
+    response = requests.get(url)
+    image = Image.open(BytesIO(response.content))
+    x1, y1 = 0, 0
+    x2, y2 = image.size
+    # Setting the points for cropped image
+    left = x1 + left
+    if left >= x2:
+        print("please check left value.")
+        return image, ''
+    top = y1 + top
+    if top >= y2:
+        print("please check top value.")
+        return image, ''
+    right = x2 - right
+    if right <= left:
+        print("please check right value.")
+        return image, ''
+    bottom = y2 - bottom
+    if bottom <= top:
+        print("please check bottom value.")
+        return image, ''
+    image = image.crop((left, top, right, bottom))
+    cropped_image_url = 'data:image/jpeg;base64,' + pillow_image_to_base64_string(image)
+    # You can put this data URL in the address bar of your browser to view the image
+    return image, cropped_image_url 
 
 
 def get_link(word):
@@ -224,12 +267,17 @@ def imagescrape(search_term):
         scraper = BeautifulSoup(data, "lxml")
         img_container = scraper.find_all("img")
         image_links = []
-        for j in range(20):
+        for j in range(image_numbers):
             if img_container[j].has_attr("src"):
                 img_src = img_container[j].get("src")
                 if "logo" not in img_src:
                     image_links.append(img_src)
-        # driver.close()
+        if image_links and image_links[0].startswith('https://'):
+            cropped_image_urls = []
+            for url in image_links:
+                image, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
+                cropped_image_urls.append(cropped_image_url)
+            image_links = cropped_image_urls
         return image_links
     except Exception as e:
         print(e)
@@ -240,6 +288,12 @@ def api_request(word):
     word_meaning = get_json(word)
     word_meaning["word"] = word
     image_links = imagescrape(word)
+    if image_links and image_links[0].startswith('https://'):
+        cropped_image_urls = []
+        for url in image_links:
+            image, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
+            cropped_image_urls.append(cropped_image_url)
+        image_links = cropped_image_urls
     word_meaning["image_links"] = image_links
     image_links = word_meaning["image_links"]
     if image_links is None:
@@ -265,6 +319,16 @@ def run():
             word = word.lower()
             c -= 1
             if word in vocabulary_dict:
+                image_links = vocabulary_dict[word]['image_links']
+                if image_links and image_links[0].startswith('https://'):
+                    cropped_image_urls = []
+                    for url in image_links:
+                        image, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
+                        cropped_image_urls.append(cropped_image_url)
+                    image_links = cropped_image_urls
+                    vocabulary_dict[word]['image_links'] = image_links
+                    with open(DATABASE_PATH, "w") as f:
+                        f.write(json.dumps(vocabulary_dict, indent=4))
                 continue
             word_meaning_dictionary = api_request(word)
             if (

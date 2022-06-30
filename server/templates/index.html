@@ -303,7 +303,12 @@ div {text-align: left; font-size: 2.5rem; font-family:"verdana"}
     <br>
     <br>
     <br>
-    <div><h1>{{word}}</h1></div>
+    <div>
+      <h1>{{word}}</h1>
+      <audio controls autoplay style="margin:auto;left:0;right:0;margin-left:115rem;box-sizing:border-box;">
+        <source src="https://d1qx7pbj0dvboc.cloudfront.net/{{word.lower()}}.mp3" type="audio/mp3">
+      </audio>      
+    </div>
     <h2>{{description}}</h2>
     <div>
         <h3>Short Meaning</h3>
@@ -333,8 +338,8 @@ div {text-align: left; font-size: 2.5rem; font-family:"verdana"}
     <br>
     <br>
     <div>
-        {% for local_image_file in image_links %}
-        <img src="{{ local_image_file }}" alt="local_image_file"  class="image">
+        {% for image_link in image_links %}
+        <img src="{{ image_link }}" alt="local_image_file"  class="image">
         {% endfor %}
     </div>
 </div>
