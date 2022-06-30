@@ -4,7 +4,7 @@ def push(item, stack, length):
         stack.pop(0)
     else:
         stack.append(item)
-    
+
 
 def pop(stack):
     if len(stack) != 0:
@@ -14,14 +14,13 @@ def pop(stack):
     return item
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     CACHE_LENGTH = 3
     stack = []
-    items = [1,2,3,4,5]
+    items = [1, 2, 3, 4, 5]
     for item in items:
         push(item, stack, CACHE_LENGTH)
         print(stack)
     for _ in range(len(items)):
         popped_item = pop(stack)
         print(stack)
-        

@@ -78,7 +78,7 @@ html {
 
 @media(max-width:2560px){
   html {
-    font-size: 60%;
+    font-size: 100%;
   }
 }
 
@@ -156,19 +156,19 @@ html {
 
 @media(max-width:360px){
   html {
-    font-size: 28%;
+    font-size: 15%;
   }
 }
 
 @media(max-width:412px){
   html {
-    font-size: 28%;
+    font-size: 15%;
   }
 }
 
 @media(max-width:480px){
   html {
-    font-size: 28%;
+    font-size: 15%;
   }
 }
 
@@ -192,19 +192,19 @@ html {
 
 @media(max-width:350px){
   html {
-    font-size: 20%;
+    font-size: 15%;
   }
 }
 
 @media(max-width:330px){
   html {
-    font-size: 20%;
+    font-size: 15%;
   }
 }
 
 @media(max-width:300px){
   html {
-    font-size: 20%;
+    font-size: 15%;
   }
 }
 
@@ -247,16 +247,16 @@ html {
 
 .flip-card {
   background-color: transparent;
-  padding: 0 15rem;
+  padding: 0 1.8rem;
+  width: 100%;
   height: 35.0rem;
-  width:55.0rem;
   perspective: 100.0rem;
 }
 
 .flip-card-inner {
   position: relative;
-  height: 35.0rem;
-  width:55.0rem;
+  width: 100%;
+  height: 100%;
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
@@ -313,14 +313,14 @@ p {text-align: center; font-size: 2.2rem}
   bottom: 4.0rem;
   right: 5.0rem;
   z-index: 99;
-  font-size: 2rem;
+  font-size: 2.4rem;
   border: none;
   outline: none;
   background-color: #04AA6D;
   color: white;
   cursor: pointer;
-  padding: 25px;
-  border-radius: 4rem;
+  padding: 2rem;
+  border-radius: 8rem;
 }
 
 #myBtn:hover {
@@ -334,10 +334,10 @@ p {text-align: center; font-size: 2.2rem}
   <script>
     //Get the button
     var mybutton = document.getElementById("myBtn");
-    
+
     // When the user scrolls down 20px from the top of the document, show the button
     window.onscroll = function() {scrollFunction()};
-    
+
     function scrollFunction() {
       if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         mybutton.style.display = "block";
@@ -345,7 +345,7 @@ p {text-align: center; font-size: 2.2rem}
         mybutton.style.display = "none";
       }
     }
-    
+
     // When the user clicks on the button, scroll to the top of the document
     function topFunction() {
       document.body.scrollTop = 0;
@@ -354,14 +354,14 @@ p {text-align: center; font-size: 2.2rem}
   </script>
 
 <div class="about-section">
-  <table>
+  <table style="margin:auto;left:0;right:0;box-sizing:border-box;">
     <tr>
-      <th><a href="/back" style='text-decoration:none; margin:auto;left:0;right:0;margin-left:20rem;box-sizing:border-box;' class="button"><i class="fa fa-backward"></i>  Back</a></th>
+      <th><a href="/back" style='text-decoration:none; margin:auto;left:0;right:0;margin-right:15rem;box-sizing:border-box;' class="button"><i class="fa fa-backward"></i>  Back</a></th>
       <th>
-        <h1 style="margin:auto;left:0;right:0;margin-left:80rem;margin-right:80rem;box-sizing:border-box;">Flashback</h1>
+        <h1>Flashback</h1>
         <p>Learn vocabulary words from flashcards</p>
       </th>
-      <th><a href="/" style='text-decoration:none; margin:auto;left:0;right:0;margin-right:20rem;box-sizing:border-box;' class="button"><i class="fa fa-home"></i>  Home</a></th>
+      <th><a href="/" style='text-decoration:none; margin:auto;left:0;right:0;margin-left:15rem;box-sizing:border-box;' class="button"><i class="fa fa-home"></i>  Home</a></th>
     </tr>
   </table>
 </div>
@@ -373,7 +373,7 @@ p {text-align: center; font-size: 2.2rem}
         <div class="flip-card">
             <div class="flip-card-inner">
               <div class="flip-card-front">
-                <img src="{{item[0]}}" alt="image" style="height:35.0rem;width:55.0rem;">
+                <img src="{{item[0]}}" alt="image" style="height:35.0rem;width:46rem;">
               </div>
               <div class="flip-card-back">
                    <p>{{item[1]}}</p>

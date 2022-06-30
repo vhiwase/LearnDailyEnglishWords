@@ -24,7 +24,6 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
 from PIL import Image
-import requests
 from io import BytesIO
 import base64
 
@@ -50,8 +49,8 @@ def pillow_image_to_base64_string(img):
 
 def base64_string_to_pillow_image(base64_str):
     return Image.open(BytesIO(base64.decodebytes(bytes(base64_str, "utf-8"))))
-    
-    
+
+
 def read_image_from_url(url, left=0, top=0, right=0, bottom=0):
     response = requests.get(url)
     image = Image.open(BytesIO(response.content))
@@ -61,23 +60,23 @@ def read_image_from_url(url, left=0, top=0, right=0, bottom=0):
     left = x1 + left
     if left >= x2:
         print("please check left value.")
-        return image, ''
+        return image, ""
     top = y1 + top
     if top >= y2:
         print("please check top value.")
-        return image, ''
+        return image, ""
     right = x2 - right
     if right <= left:
         print("please check right value.")
-        return image, ''
+        return image, ""
     bottom = y2 - bottom
     if bottom <= top:
         print("please check bottom value.")
-        return image, ''
+        return image, ""
     image = image.crop((left, top, right, bottom))
-    cropped_image_url = 'data:image/jpeg;base64,' + pillow_image_to_base64_string(image)
+    cropped_image_url = "data:image/jpeg;base64," + pillow_image_to_base64_string(image)
     # You can put this data URL in the address bar of your browser to view the image
-    return image, cropped_image_url 
+    return image, cropped_image_url
 
 
 def get_link(word):
@@ -234,8 +233,11 @@ def get_json(word):
     type_of = get_type_of(page)
     antonym = get_antonym(page)
     examples = get_sentence(word)
-    if "Try the world's fastest, smartest dictionary:".lower() in description["content"].lower():
-        description_sentence = ''
+    if (
+        "Try the world's fastest, smartest dictionary:".lower()
+        in description["content"].lower()
+    ):
+        description_sentence = ""
     else:
         description_sentence = description["content"]
     json_dict["description"] = description_sentence
@@ -249,7 +251,7 @@ def get_json(word):
     return json_dict
 
 
-def imagescrape(search_term, IMAGE_NUMBERS):
+def imagescrape(search_term):
     try:
         url = "https://www.shutterstock.com/search/{}".format(search_term)
         driver.get(url)
@@ -278,7 +280,7 @@ def imagescrape(search_term, IMAGE_NUMBERS):
 
 
 def push(item, stack, length):
-    bool_list = [item[3]==s[3] for s in stack]
+    bool_list = [item[3] == s[3] for s in stack]
     if any(bool_list):
         item_index = bool_list.index(True)
         stack.remove(stack[item_index])
@@ -304,14 +306,16 @@ def pop(stack):
 def check():
     return "Application is up"
 
+
 @app.route("/back")
 def back():
     item = stack and stack[::-1][0]
     if item:
-        word =  item[3]
+        word = item[3]
     else:
         word = ""
     return redirect(url_for("post_request", word=word))
+
 
 @app.route("/next_word", methods=["GET", "POST"])
 def next_word():
@@ -408,7 +412,7 @@ def post_request(word):
         # rmtree(image_folder)
         # os.makedirs(image_folder, exist_ok=True)
         word_meaning = get_json(word)
-        image_links = imagescrape(word, IMAGE_NUMBERS)
+        image_links = imagescrape(word)
         word_meaning["image_links"] = image_links
         vocabulary_dict[word.lower()] = word_meaning
         if (
@@ -439,25 +443,25 @@ def post_request(word):
         image_links = []
     print("word_meaning", word_meaning)
     item = word_meaning
-    image_links_index = random.randint(0, len(image_links)-1)
+    image_links_index = random.randint(0, len(image_links) - 1)
     url = image_links and image_links[image_links_index]
-    _, cropped_image_url  = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
-    item['cropped_image_url'] = cropped_image_url
-    
+    _, cropped_image_url = read_image_from_url(url, left=0, top=0, right=0, bottom=20)
+    item["cropped_image_url"] = cropped_image_url
+
     if word_meaning["examples"]:
-        examples_index = random.randint(0, len(word_meaning["examples"])-1)
+        examples_index = random.randint(0, len(word_meaning["examples"]) - 1)
         example = word_meaning["examples"][examples_index]
     else:
-        example = ''
-    if word_meaning["word"].upper() != 'FAVICON.ICO':
+        example = ""
+    if word_meaning["word"].upper() != "FAVICON.ICO":
         memory = [
-            cropped_image_url, 
+            cropped_image_url,
             word_meaning["description"],
             example,
             word_meaning["word"],
-            word_meaning["synonym"]
+            word_meaning["synonym"],
         ]
-        
+
         push(memory, stack, CACHE_LENGTH)
     return render_template(
         "index.html",
@@ -472,7 +476,7 @@ def post_request(word):
         type_of=word_meaning["type_of"],
         examples=word_meaning["examples"],
         part_of_speech=word_meaning["part_of_speech"],
-        stack = stack[::-1]
+        stack=stack[::-1],
     )
 
 
@@ -488,7 +492,7 @@ def api_request(word):
     if not (word in vocabulary_dict.keys()):
         word_meaning = get_json(word)
         word_meaning["word"] = word
-        image_links = imagescrape(word, IMAGE_NUMBERS)
+        image_links = imagescrape(word)
         word_meaning["image_links"] = image_links[:IMAGE_NUMBERS]
         image_links = word_meaning["image_links"]
         vocabulary_dict[word.lower()] = word_meaning
