@@ -39,7 +39,6 @@ BASE_PATH = ROOT_PATH.parent
 DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()
 IMPORTANT_WORDS_PATH = (BASE_PATH / "important_words.json").absolute().as_posix()
 OUTPUT_JSON_PATH = (BASE_PATH / "important_literature_words.json").absolute().as_posix()
-STOP_WORD_PATH = (BASE_PATH / "stopwords.txt").absolute().as_posix()
 # with open(OUTPUT_JSON_PATH, "r") as f:
 #     FINAL_DICTIONARY = eval(f.read())
 
@@ -47,10 +46,6 @@ STOP_WORD_PATH = (BASE_PATH / "stopwords.txt").absolute().as_posix()
 # for all_words in FINAL_DICTIONARY['all_words']:
 #     for words in all_words:
 #         VOCABULARY_LIST.extend([word.lower().strip() for word in words])
-
-with open(STOP_WORD_PATH, "r") as f:
-    text = f.read()
-    STOPWORDS = text.split("\n")
 
 with open(IMPORTANT_WORDS_PATH, "r") as f:
     IMPORTANT_WORDS_DICT = eval(f.read())
