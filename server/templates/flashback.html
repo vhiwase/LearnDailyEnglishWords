@@ -20,7 +20,7 @@ html {
 
 .column {
   float: left;
-  width: 33.33%;
+  width: 25%;
   height: 33.33%;
   margin-bottom: 1.6rem;
   padding: 0 .8rem;
@@ -78,19 +78,19 @@ html {
 
 @media(max-width:2560px){
   html {
-    font-size: 100%;
+    font-size: 60%;
   }
 }
 
 @media(max-width:1920px){
   html {
-    font-size: 50%;
+    font-size: 45%;
   }
 }
 
 @media(max-width:1680px){
   html {
-    font-size: 45%;
+    font-size: 40%;
   }
 }
 
@@ -102,43 +102,43 @@ html {
 
 @media(max-width:1440px){
   html {
-    font-size: 40%;
+    font-size: 34%;
   }
 }
 
 @media(max-width:1400px){
   html {
-    font-size: 40%;
+    font-size: 33%;
   }
 }
 
 @media(max-width:1366px){
   html {
-    font-size: 40%;
+    font-size: 32%;
   }
 }
 
 @media(max-width:1360px){
   html {
-    font-size: 40%;
+    font-size: 32%;
   }
 }
 
 @media(max-width:1280px){
   html {
-    font-size: 40%;
+    font-size: 30%;
   }
 }
 
 @media(max-width:1152px){
   html {
-    font-size: 50%;
+    font-size: 27%;
   }
 }
 
 @media(max-width:1024px){
   html {
-    font-size: 50%;
+    font-size: 26%;
   }
 }
 
@@ -148,9 +148,9 @@ html {
   }
 }
 
-@media(max-height:600px){
+@media(max-height:720px){
   html {
-    font-size: 28%;
+    font-size: 30%;
   }
 }
 
@@ -227,6 +227,7 @@ html {
   cursor: pointer;
   padding: 1.8rem;
   width: 100%;
+  height: 100%;
   border: none;
   text-align: center;
   outline: none;
@@ -249,7 +250,7 @@ html {
   background-color: transparent;
   padding: 0 1.8rem;
   width: 100%;
-  height: 35.0rem;
+  height: 28.0rem;
   perspective: 100.0rem;
 }
 
@@ -375,12 +376,12 @@ p {text-align: center; font-size: 2.2rem}
         <div class="flip-card">
             <div class="flip-card-inner">
               <div class="flip-card-front">
-                <img src="{{item[0]}}" alt="image" style="height:35.0rem;width:46rem;">
+                <img src="{{item[0]}}" alt="image" style="height:28.0rem;width:39rem;">
               </div>
               <div class="flip-card-back">
+                   <p>{{item[5]}}</p>
                    <p>{{item[1]}}</p>
-                   <p>For Example:</p>
-                   <p>{{item[2]}}</p>
+                   <p>Example: {{item[2]}}</p>
               </div>
             </div>
           </div>

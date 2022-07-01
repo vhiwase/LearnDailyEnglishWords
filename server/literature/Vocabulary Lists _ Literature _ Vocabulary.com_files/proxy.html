@@ -1,0 +1,96 @@
+
+<!-- saved from url=(0037)https://api.vocabulary.com/proxy.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script>
+if (window.fetch) init();
+else loadScript('polyfills.js',init);
+
+
+function init() {
+	addEventListener("message", function(event){
+		if (event.origin.match(/vocabulary\.com$/)) {
+
+			if (typeof event.data.url != 'string' ||
+				typeof event.data.id != 'number') {
+				console.log('API proxy rejected invalid message',event);
+				return;
+			}
+
+			createHeaders(event.data.options);
+
+			fetch(event.data.url,event.data.options).then(function(response) {
+				if (response.headers.get('content-type')==='application/json') {
+					response.json().then(function(json) {
+						window.parent.postMessage({ id:event.data.id, status:'done', response: { json: json, headers: extractHeaders(response), status: response.status } }, "*");
+					});
+				} else {
+					response.text().then(function(text){
+						window.parent.postMessage({ id:event.data.id, status:'done', response: { text: text, headers: extractHeaders(response), status: response.status } }, "*");
+					});
+				}
+			}).catch(function(e) {
+				window.parent.postMessage({ id:event.data.id, status:'error', error: clone(e) }, "*");
+		    });
+		}
+
+		function createHeaders(options) {
+			if (options && typeof options.headers==='object') {
+				var headers = new Headers();
+				if (options.headers.length) {
+					options.headers.forEach(function(v){
+						headers.append(v[0],v[1]);
+					});
+				} else {
+					for (var name in options.headers) {
+						headers.append(name,options.headers[name]);
+					}
+				}
+				options.headers = headers;
+			}
+		}
+
+		function extractHeaders(response) {
+			var headers = {};
+			response.headers.forEach(function(val, key) {
+				headers[key]=val;
+			});
+			return headers;
+		}
+
+
+	}, false);
+	window.parent.postMessage({ ready:true }, "*");
+}
+
+function clone(o) {
+	switch (typeof o) {
+		case 'undefined':
+		case 'boolean':
+		case 'string':
+		case 'number':
+			return o;
+		case 'function':
+			return undefined;
+		case 'object':
+			if (o==null) return null;
+			if (o instanceof Date) return o;
+			var ret = {};
+			for (var k in o) ret[k] = close(o[k]);
+			return ret;
+		case 'symbol':
+			// TODO?
+		default:
+			return undefined;
+	}
+}
+
+function loadScript(src, done) {
+  var js = document.createElement('script');
+  js.src = src;
+  js.onload = function() { done(); };
+  document.head.appendChild(js);
+}
+
+</script></head>
+<body data-new-gr-c-s-check-loaded="14.1067.0" data-gr-ext-installed="">
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

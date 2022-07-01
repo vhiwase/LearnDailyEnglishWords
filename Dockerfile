@@ -18,7 +18,7 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 RUN pip install flake8==3.9.1
 COPY ./server/ /usr/src/app/server/
-RUN flake8 --exclude __init__.py --ignore=T001,T003,E402,W503 ./ --max-line-length=250
+RUN flake8 --exclude __init__.py --ignore=T001,T003,E402,W503,B001,E712,E262,382,495,F841,E711,N801,N806,C901,E722 ./ --max-line-length=250
 # install python dependencies
 COPY ./requirements.txt requirements.txt
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/server/wheels -r requirements.txt

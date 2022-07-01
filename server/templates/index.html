@@ -294,7 +294,7 @@ div {text-align: left; font-size: 2.5rem; font-family:"verdana"}
             </form>
           </th>
           <th>
-            <a href="/next_word" style='text-decoration:none;' class="button">Next Word</a>
+            <a href="/next_word/{{next_word}}" style='text-decoration:none;' class="button">Next Word</a>
           </th>
         </tr>
     </table>
@@ -304,7 +304,7 @@ div {text-align: left; font-size: 2.5rem; font-family:"verdana"}
     <br>
     <br>
     <div>
-      <h1>{{word}}</h1>
+      <h1>{{word}} | {{hindi_translated_word}}</h1>
       <h1><audio controls autoplay>
         <source src="https://d1qx7pbj0dvboc.cloudfront.net/{{word.lower()}}.mp3" type="audio/mp3">
       </audio>
@@ -340,7 +340,7 @@ div {text-align: left; font-size: 2.5rem; font-family:"verdana"}
     <br>
     <div>
         {% for image_link in image_links %}
-        <img src="{{ image_link }}" alt="local_image_file"  class="image">
+        <img src="{{ image_link }} " alt="local_image_file"  class="image" width="390" height="260">
         {% endfor %}
     </div>
 </div>

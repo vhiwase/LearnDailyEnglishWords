@@ -23,7 +23,7 @@ repos:
           "--max-line-length=150",
           "--max-complexity=18",
           "--config=setup.cfg",
-          "--ignore=T001,T003,E402,W503"
+          "--ignore=T001,T003,E402,W503,B001,E712,E262,382,495,F841,E711,N801,N806,C901,E722"
         ]
       exclude: __init__.py
       additional_dependencies: [
