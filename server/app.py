@@ -994,7 +994,6 @@ def get_request():
 
 @app.route("/<word>", methods=["GET"])
 def post_request(word):
-    hindi_translated_word = translator.translate(word, lang_tgt="hi")
     word = word.strip()
     word = word.lower()
     if word == "favicon.ico":
@@ -1020,6 +1019,9 @@ def post_request(word):
     if pathlib.Path(DATABASE_PATH).is_file():
         with open(DATABASE_PATH, "r") as f:
             vocabulary_dict = json.load(f)
+    if "hindi_translated_word" not in vocabulary_dict[word].keys():
+        hindi_translated_word = translator.translate(word, lang_tgt="hi")
+        vocabulary_dict[word]["hindi_translated_word"] = hindi_translated_word
     if not (word in vocabulary_dict.keys()):
         # image_folder = BASE_PATH / "temp"
         # os.makedirs(image_folder, exist_ok=True)
@@ -1120,40 +1122,48 @@ def post_request(word):
     # vocabulary = sorted(token_dictionary, key=lambda x: len(x))[::-1]
     # if word in vocabulary:
     #     del vocabulary[word]
-
-    word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
-    wordnet_api = requests.get(word_url)
-    vocabulary = []
-    wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
-    for a_div in wordnet_soup.findAll("a"):
-        if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
-            text = a_div.text
-            if text in [stack_item[3].lower() for stack_item in stack]:
-                continue
-            if text != "S:":
-                vocabulary.append(text)
-    if word in vocabulary:
-        del vocabulary[word]
-    next_word = vocabulary and vocabulary[random.randint(0, len(vocabulary) - 1)]
-    if not next_word:
-        next_word = "random_word"
-    if not vocabulary:
-        next_word = "random_word"
-    if not next_word or next_word.upper() == "FAVICON.ICO":
-        next_word = "random_word"
+    if "vocabulary" not in vocabulary_dict[word].keys():
+        word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
+        wordnet_api = requests.get(word_url)
+        vocabulary = []
+        wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
+        for a_div in wordnet_soup.findAll("a"):
+            if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
+                text = a_div.text
+                if text in [stack_item[3].lower() for stack_item in stack]:
+                    continue
+                if text != "S:":
+                    vocabulary.append(text)
+        vocabulary_dict[word]['vocabulary'] = vocabulary
+    
+    if word in vocabulary_dict[word]['vocabulary']:
+        vocabulary_dict[word]['vocabulary'].remove(word)
     if word_meaning["word"].upper() != "FAVICON.ICO":
         memory = [
             cropped_image_url,
             word_meaning["description"],
             example,
             word_meaning["word"],
-            vocabulary,
-            hindi_translated_word,
+            vocabulary_dict[word]['vocabulary'],
+            vocabulary_dict[word]['hindi_translated_word'],
         ]
         push(memory, stack, CACHE_LENGTH)
-    else:
-        vocabulary = []
+    
+    vocab_words = vocabulary_dict[word]['vocabulary']
+    vocab_words = sorted(vocab_words, key=lambda x: len(x))[::-1]
+    next_word = vocab_words and vocab_words[0]
+    while next_word:
+        if next_word in [stack_item[3].lower() for stack_item in stack]:
+            next_word = vocab_words and vocab_words[0]
+            continue
+        else:
+            break
+    if not next_word:
         next_word = "random_word"
+    if not vocabulary_dict[word]['vocabulary']:
+        next_word = "random_word"
+    if not next_word or next_word.upper() == "FAVICON.ICO":
+        next_word = "random_word" 
     print("*****************")
     print("word_meaning", word_meaning)
     print("*****************")
@@ -1173,9 +1183,9 @@ def post_request(word):
         examples=word_meaning["examples"],
         part_of_speech=word_meaning["part_of_speech"],
         stack=stack[::-1],
-        vocabulary=vocabulary,
+        vocabulary=vocabulary_dict[word]['vocabulary'],
         next_word=next_word,
-        hindi_translated_word=hindi_translated_word,
+        hindi_translated_word=vocabulary_dict[word]['hindi_translated_word'],
     )
 
 
