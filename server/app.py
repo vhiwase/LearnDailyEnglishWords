@@ -1019,9 +1019,6 @@ def post_request(word):
     if pathlib.Path(DATABASE_PATH).is_file():
         with open(DATABASE_PATH, "r") as f:
             vocabulary_dict = json.load(f)
-    if "hindi_translated_word" not in vocabulary_dict[word].keys():
-        hindi_translated_word = translator.translate(word, lang_tgt="hi")
-        vocabulary_dict[word]["hindi_translated_word"] = hindi_translated_word
     if not (word in vocabulary_dict.keys()):
         # image_folder = BASE_PATH / "temp"
         # os.makedirs(image_folder, exist_ok=True)
@@ -1122,6 +1119,9 @@ def post_request(word):
     # vocabulary = sorted(token_dictionary, key=lambda x: len(x))[::-1]
     # if word in vocabulary:
     #     del vocabulary[word]
+    if "hindi_translated_word" not in vocabulary_dict[word].keys():
+        hindi_translated_word = translator.translate(word, lang_tgt="hi")
+        vocabulary_dict[word]["hindi_translated_word"] = hindi_translated_word
     if "vocabulary" not in vocabulary_dict[word].keys():
         word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
         wordnet_api = requests.get(word_url)
