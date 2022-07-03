@@ -1134,22 +1134,22 @@ def post_request(word):
                     continue
                 if text != "S:":
                     vocabulary.append(text)
-        vocabulary_dict[word]['vocabulary'] = vocabulary
-    
-    if word in vocabulary_dict[word]['vocabulary']:
-        vocabulary_dict[word]['vocabulary'].remove(word)
+        vocabulary_dict[word]["vocabulary"] = vocabulary
+
+    if word in vocabulary_dict[word]["vocabulary"]:
+        vocabulary_dict[word]["vocabulary"].remove(word)
     if word_meaning["word"].upper() != "FAVICON.ICO":
         memory = [
             cropped_image_url,
             word_meaning["description"],
             example,
             word_meaning["word"],
-            vocabulary_dict[word]['vocabulary'],
-            vocabulary_dict[word]['hindi_translated_word'],
+            vocabulary_dict[word]["vocabulary"],
+            vocabulary_dict[word]["hindi_translated_word"],
         ]
         push(memory, stack, CACHE_LENGTH)
-    
-    vocab_words = vocabulary_dict[word]['vocabulary']
+
+    vocab_words = vocabulary_dict[word]["vocabulary"]
     vocab_words = sorted(vocab_words, key=lambda x: len(x))[::-1]
     next_word = vocab_words and vocab_words[0]
     while next_word:
@@ -1160,10 +1160,10 @@ def post_request(word):
             break
     if not next_word:
         next_word = "random_word"
-    if not vocabulary_dict[word]['vocabulary']:
+    if not vocabulary_dict[word]["vocabulary"]:
         next_word = "random_word"
     if not next_word or next_word.upper() == "FAVICON.ICO":
-        next_word = "random_word" 
+        next_word = "random_word"
     print("*****************")
     print("word_meaning", word_meaning)
     print("*****************")
@@ -1183,9 +1183,9 @@ def post_request(word):
         examples=word_meaning["examples"],
         part_of_speech=word_meaning["part_of_speech"],
         stack=stack[::-1],
-        vocabulary=vocabulary_dict[word]['vocabulary'],
+        vocabulary=vocabulary_dict[word]["vocabulary"],
         next_word=next_word,
-        hindi_translated_word=vocabulary_dict[word]['hindi_translated_word'],
+        hindi_translated_word=vocabulary_dict[word]["hindi_translated_word"],
     )
 
 

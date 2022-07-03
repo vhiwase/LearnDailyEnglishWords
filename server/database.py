@@ -832,6 +832,7 @@ def run():
             vocabulary_dict = json.load(f)
     else:
         vocabulary_dict = dict()
+    total = sum([len(i) for i in all_words])
     for word_list in all_words:
         adding_words = False
         for enum, word in enumerate(word_list):
@@ -860,7 +861,6 @@ def run():
         if adding_words:
             with open(DATABASE_PATH, "w") as f:
                 f.write(json.dumps(vocabulary_dict, indent=4))
-                total = sum([len(i) for i in all_words])
                 print()
                 print()
                 print("#" * 100)
@@ -896,23 +896,102 @@ def run():
             print("#" * 100)
             print()
             print()
-    
-    for key_word in vocabulary_dict.keys():
-        hindi_translated_word = translator.translate(key_word, lang_tgt="hi")
-        vocabulary_dict[key_word]['hindi_translated_word'] = hindi_translated_word
-        word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(key_word)
-        wordnet_api = requests.get(word_url)
-        vocabulary = []
-        wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
-        for a_div in wordnet_soup.findAll("a"):
-            if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
-                text = a_div.text
-                if text != "S:":
-                    vocabulary.append(text)
-        vocabulary_dict[key_word]['vocabulary'] = vocabulary
-                    
 
-    
+    for key_word in vocabulary_dict.keys():
+        if "hindi_translated_word" not in vocabulary_dict[key_word].keys():
+            hindi_translated_word = translator.translate(key_word, lang_tgt="hi")
+            vocabulary_dict[key_word]["hindi_translated_word"] = hindi_translated_word
+        if "vocabulary" not in vocabulary_dict[key_word].keys():
+            word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(
+                key_word
+            )
+            wordnet_api = requests.get(word_url)
+            vocabulary = []
+            wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
+            for a_div in wordnet_soup.findAll("a"):
+                if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
+                    text = a_div.text
+                    if text != "S:":
+                        vocabulary.append(text)
+            vocabulary_dict[key_word]["vocabulary"] = vocabulary
+    with open(DATABASE_PATH, "w") as f:
+        f.write(json.dumps(vocabulary_dict, indent=4))
+
+    with open(DATABASE_PATH, "r") as f:
+        vocabulary_dict = json.load(f)
+
+    vocabulary_dict_keys = list(vocabulary_dict.keys())
+    corpus = vocabulary_dict_keys[:]
+    for key in vocabulary_dict_keys:
+        corpus.extend(vocabulary_dict[key]["vocabulary"])
+    corpus = sorted(set(corpus))
+    c = len(corpus)
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("***********************************")
+    print()
+    print("Corpus now increases to {}".format(len(corpus)))
+    print()
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("***********************************")
+    time.sleep(5)
+    for word in corpus:
+        word = word.strip()
+        word = word.lower()
+        c -= 1
+        if word in vocabulary_dict:
+            continue
+        word_meaning_dictionary = api_request(word)
+        if "hindi_translated_word" not in word_meaning_dictionary.keys():
+            hindi_translated_word = translator.translate(word, lang_tgt="hi")
+            word_meaning_dictionary["hindi_translated_word"] = hindi_translated_word
+        if "vocabulary" not in word_meaning_dictionary.keys():
+            word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
+            wordnet_api = requests.get(word_url)
+            vocabulary = []
+            wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
+            for a_div in wordnet_soup.findAll("a"):
+                if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
+                    text = a_div.text
+                    if text != "S:":
+                        vocabulary.append(text)
+            word_meaning_dictionary["vocabulary"] = vocabulary
+        vocabulary_dict[word] = word_meaning_dictionary
+        if (
+            word_meaning_dictionary["description"]
+            == "We're sorry, your request has been denied."
+        ):
+            with open(DATABASE_PATH, "w") as f:
+                f.write(json.dumps(vocabulary_dict, indent=4))
+            return
+        if c % 20 == 0:
+            print("*" * 100)
+            print("*" * 100)
+            print("'{}' word is processing".format(word))
+            print("{} word are remaining".format(c))
+            print("Next checkpoint after {} words".format(20 - c % 20))
+            print("*" * 100)
+            print("*" * 100)
+            with open(DATABASE_PATH, "w") as f:
+                f.write(json.dumps(vocabulary_dict, indent=4))
+                print()
+                print()
+                print("#" * 100)
+                print("#" * 100)
+                print("*" * 100)
+                print("*" * 100)
+                print(
+                    "{} words are saved successfully\n{} word list are remaining...".format(
+                        total - c, c
+                    )
+                )
+                print("*" * 100)
+                print("*" * 100)
+                print("#" * 100)
+                print("#" * 100)
+                print()
+                print()
+
+
 if __name__ == "__main__":
     chrome_options = Options()
     chrome_options.add_argument("--no-sandbox")
