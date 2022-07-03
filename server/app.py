@@ -1169,6 +1169,8 @@ def post_request(word):
     print("*****************")
     print("next_word", next_word)
     print()
+    with open(DATABASE_PATH, "w") as f:
+        f.write(json.dumps(vocabulary_dict, indent=4))
     return render_template(
         "index.html",
         word=word_meaning["word"],
@@ -1198,6 +1200,22 @@ def api_request(word):
             vocabulary_dict = json.load(f)
     else:
         vocabulary_dict = {}
+    if "vocabulary" not in vocabulary_dict[word].keys():
+        word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
+        wordnet_api = requests.get(word_url)
+        vocabulary = []
+        wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
+        for a_div in wordnet_soup.findAll("a"):
+            if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
+                text = a_div.text
+                if text in [stack_item[3].lower() for stack_item in stack]:
+                    continue
+                if text != "S:":
+                    vocabulary.append(text)
+        vocabulary_dict[word]["vocabulary"] = vocabulary
+    if "hindi_translated_word" not in vocabulary_dict[word].keys():
+        hindi_translated_word = translator.translate(word, lang_tgt="hi")
+        vocabulary_dict[word]["hindi_translated_word"] = hindi_translated_word
     if not (word in vocabulary_dict.keys()):
         word_meaning = get_json(word)
         word_meaning["word"] = word

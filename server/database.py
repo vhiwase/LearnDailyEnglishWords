@@ -5,7 +5,6 @@ ROOT_PATH = pathlib.Path(__file__)
 BASE_PATH = ROOT_PATH.parent
 pathlib.sys.path.insert(0, BASE_PATH)
 
-# import os
 import pathlib
 import ssl
 import time
@@ -901,7 +900,10 @@ def run():
     for key_word in vocabulary_dict.keys():
         cc -= 1
         if "hindi_translated_word" not in vocabulary_dict[key_word].keys():
-            hindi_translated_word = translator.translate(key_word, lang_tgt="hi")
+            try:
+                hindi_translated_word = translator.translate(key_word, lang_tgt="hi")
+            except:
+                hindi_translated_word = ""
             vocabulary_dict[key_word]["hindi_translated_word"] = hindi_translated_word
         if "vocabulary" not in vocabulary_dict[key_word].keys():
             word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(
@@ -916,7 +918,7 @@ def run():
                     if text != "S:":
                         vocabulary.append(text)
             vocabulary_dict[key_word]["vocabulary"] = vocabulary
-        if cc % 1000 == 0:
+        if cc % 100 == 0:
             print()
             print("Saving files...")
             with open(DATABASE_PATH, "w") as f:
@@ -924,15 +926,16 @@ def run():
         print()
         print("****************")
         print(
-            "{} out of {} files are updated".format(
-                (len(vocabulary_dict.keys()) - cc), len(vocabulary_dict.keys())
+            "{} out of {} files are updated cc is {}".format(
+                (len(vocabulary_dict.keys()) - cc), len(vocabulary_dict.keys(), cc)
             )
         )
         print("****************")
 
+
+def update_corpos(corpus_path):
     with open(DATABASE_PATH, "r") as f:
         vocabulary_dict = json.load(f)
-
     vocabulary_dict_keys = list(vocabulary_dict.keys())
     corpus = vocabulary_dict_keys[:]
     for key in vocabulary_dict_keys:
@@ -955,7 +958,10 @@ def run():
             continue
         word_meaning_dictionary = api_request(word)
         if "hindi_translated_word" not in word_meaning_dictionary.keys():
-            hindi_translated_word = translator.translate(word, lang_tgt="hi")
+            try:
+                hindi_translated_word = translator.translate(word, lang_tgt="hi")
+            except:
+                hindi_translated_word = ""
             word_meaning_dictionary["hindi_translated_word"] = hindi_translated_word
         if "vocabulary" not in word_meaning_dictionary.keys():
             word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
@@ -973,7 +979,7 @@ def run():
             word_meaning_dictionary["description"]
             == "We're sorry, your request has been denied."
         ):
-            with open(DATABASE_PATH, "w") as f:
+            with open(corpus_path, "w") as f:
                 f.write(json.dumps(vocabulary_dict, indent=4))
             return
         if c % 20 == 0:
@@ -984,7 +990,7 @@ def run():
             print("Next checkpoint after {} words".format(20 - c % 20))
             print("*" * 100)
             print("*" * 100)
-            with open(DATABASE_PATH, "w") as f:
+            with open(corpus_path, "w") as f:
                 f.write(json.dumps(vocabulary_dict, indent=4))
                 print()
                 print()
@@ -994,7 +1000,7 @@ def run():
                 print("*" * 100)
                 print(
                     "{} words are saved successfully\n{} word list are remaining...".format(
-                        total - c, c
+                        len(corpus) - c, c
                     )
                 )
                 print("*" * 100)
@@ -1021,4 +1027,6 @@ if __name__ == "__main__":
         )  # chrome_options is deprecated
         driver.maximize_window()
     run()
+    corpus_path = (BASE_PATH / "corpus.json").absolute().as_posix()
+    update_corpos(corpus_path)
     driver.close()
