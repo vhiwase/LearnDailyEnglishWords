@@ -927,7 +927,7 @@ def run():
         print("****************")
         print(
             "{} out of {} files are updated cc is {}".format(
-                (len(vocabulary_dict.keys()) - cc), len(vocabulary_dict.keys(), cc)
+                (len(vocabulary_dict.keys()) - cc), len(vocabulary_dict.keys()), cc)
             )
         )
         print("****************")
