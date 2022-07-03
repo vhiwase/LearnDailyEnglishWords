@@ -916,7 +916,7 @@ def run():
                     if text != "S:":
                         vocabulary.append(text)
             vocabulary_dict[key_word]["vocabulary"] = vocabulary
-        if cc % 20 == 0:
+        if cc % 1000 == 0:
             print()
             print("Saving files...")
             with open(DATABASE_PATH, "w") as f:
