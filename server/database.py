@@ -897,7 +897,9 @@ def run():
             print()
             print()
 
+    cc = len(vocabulary_dict.keys())
     for key_word in vocabulary_dict.keys():
+        cc -= 1
         if "hindi_translated_word" not in vocabulary_dict[key_word].keys():
             hindi_translated_word = translator.translate(key_word, lang_tgt="hi")
             vocabulary_dict[key_word]["hindi_translated_word"] = hindi_translated_word
@@ -914,8 +916,19 @@ def run():
                     if text != "S:":
                         vocabulary.append(text)
             vocabulary_dict[key_word]["vocabulary"] = vocabulary
-    with open(DATABASE_PATH, "w") as f:
-        f.write(json.dumps(vocabulary_dict, indent=4))
+        if cc % 20 == 0:
+            print()
+            print("Saving files...")
+            with open(DATABASE_PATH, "w") as f:
+                f.write(json.dumps(vocabulary_dict, indent=4))
+        print()
+        print("****************")
+        print(
+            "{} out of {} files are updated".format(
+                (len(vocabulary_dict.keys()) - cc), len(vocabulary_dict.keys())
+            )
+        )
+        print("****************")
 
     with open(DATABASE_PATH, "r") as f:
         vocabulary_dict = json.load(f)
