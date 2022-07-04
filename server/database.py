@@ -939,10 +939,15 @@ def update_corpos(corpus_path):
     with open(DATABASE_PATH, "r") as f:
         vocabulary_dict = json.load(f)
     vocabulary_dict_keys = list(vocabulary_dict.keys())
-    corpus = vocabulary_dict_keys[:]
+    all_corpus = vocabulary_dict_keys[:]
     for key in vocabulary_dict_keys:
-        corpus.extend(vocabulary_dict[key]["vocabulary"])
-    corpus = sorted(set(corpus))
+        all_corpus.extend(vocabulary_dict[key]["vocabulary"])
+    sorted_corpus = sorted(set(all_corpus))
+    corpus = []
+    for item in sorted_corpus:
+        word_list = item.split()
+        if len(word_list) == 1 and not re.search('[0-9]+', item):
+            corpus.append(item)
     c = len(corpus)
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print("***********************************")
