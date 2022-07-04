@@ -946,7 +946,7 @@ def update_corpos(corpus_path):
     corpus = []
     for item in sorted_corpus:
         word_list = item.split()
-        if len(word_list) == 1 and not re.search('[0-9]+', item):
+        if len(word_list) == 1 and not re.search("[0-9]+", item):
             corpus.append(item)
     c = len(corpus)
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
