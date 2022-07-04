@@ -918,7 +918,7 @@ def run():
                     if text != "S:":
                         vocabulary.append(text)
             vocabulary_dict[key_word]["vocabulary"] = vocabulary
-        if cc % 100 == 0:
+        if cc % len(vocabulary_dict.keys()) == 0:
             print()
             print("Saving files...")
             with open(DATABASE_PATH, "w") as f:
@@ -931,6 +931,8 @@ def run():
             )
         )
         print("****************")
+    with open(DATABASE_PATH, "w") as f:
+        f.write(json.dumps(vocabulary_dict, indent=4))
 
 
 def update_corpos(corpus_path):
