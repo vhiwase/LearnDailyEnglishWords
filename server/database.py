@@ -957,11 +957,19 @@ def update_corpos(corpus_path):
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     print("***********************************")
     time.sleep(5)
-    for word in corpus:
+    corpus_dict = vocabulary_dict
+    if pathlib.Path(corpus_path).exists():
+        with open(corpus_path, 'r') as f:
+            corpus_dict = json.load(f)
+    for enum, word in enumerate(corpus):
         word = word.strip()
         word = word.lower()
         c -= 1
         if word in vocabulary_dict:
+            print("{} words remaining ..".format(len(corpus) - enum))
+            continue
+        if word in corpus_dict:
+            print("{} words remaining ..".format(len(corpus) - enum))
             continue
         word_meaning_dictionary = api_request(word)
         if "hindi_translated_word" not in word_meaning_dictionary.keys():
@@ -981,13 +989,17 @@ def update_corpos(corpus_path):
                     if text != "S:":
                         vocabulary.append(text)
             word_meaning_dictionary["vocabulary"] = vocabulary
-        vocabulary_dict[word] = word_meaning_dictionary
+        corpus_dict[word] = word_meaning_dictionary
+        print()
+        print("########## {} ###############".format(word))
+        print("corpus_dict[word] =", corpus_dict[word])
+        print()
         if (
             word_meaning_dictionary["description"]
             == "We're sorry, your request has been denied."
         ):
             with open(corpus_path, "w") as f:
-                f.write(json.dumps(vocabulary_dict, indent=4))
+                f.write(json.dumps(corpus_dict, indent=4))
             return
         if c % 20 == 0:
             print("*" * 100)
@@ -998,7 +1010,7 @@ def update_corpos(corpus_path):
             print("*" * 100)
             print("*" * 100)
             with open(corpus_path, "w") as f:
-                f.write(json.dumps(vocabulary_dict, indent=4))
+                f.write(json.dumps(corpus_dict, indent=4))
                 print()
                 print()
                 print("#" * 100)
