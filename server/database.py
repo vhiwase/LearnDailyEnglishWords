@@ -1028,6 +1028,115 @@ def update_corpos(corpus_path):
                 print("#" * 100)
                 print()
                 print()
+    with open(corpus_path, "w") as f:
+        f.write(json.dumps(corpus_dict, indent=4))
+
+
+def update_large_corpos(corpus_path):
+    with open(corpus_path, "r") as f:
+        vocabulary_dict = json.load(f)
+    vocabulary_dict_keys = list(vocabulary_dict.keys())
+    all_corpus = vocabulary_dict_keys[:]
+    for key in vocabulary_dict_keys:
+        all_corpus.extend(vocabulary_dict[key]["vocabulary"])
+    sorted_corpus = sorted(set(all_corpus))
+    corpus = []
+    for item in sorted_corpus:
+        word_list = item.split()
+        if len(word_list) == 1 and not re.search("[0-9]+", item):
+            corpus.append(item)
+    large_corpus = []
+    for item in corpus:
+        if item not in vocabulary_dict_keys:
+            large_corpus.append(item)
+    large_corpus = sorted(set(large_corpus))
+    c = len(large_corpus)
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("***********************************")
+    print()
+    print("Large Corpus now increases by {}".format(len(large_corpus)))
+    print()
+    print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    print("***********************************")
+    time.sleep(5)
+    corpus_dict = vocabulary_dict
+    if pathlib.Path(corpus_path).exists():
+        with open(corpus_path, 'r') as f:
+            corpus_dict = json.load(f)
+    for enum, word in enumerate(large_corpus):
+        word = word.strip()
+        word = word.lower()
+        c -= 1
+        if word in vocabulary_dict:
+            print("{} words remaining ..".format(len(large_corpus) - enum))
+            continue
+        if word in corpus_dict:
+            print("{} words remaining ..".format(len(large_corpus) - enum))
+            continue
+        word_meaning_dictionary = api_request(word)
+        if 'description' in word_meaning_dictionary and \
+            "Try the world's fastest, smartest dictionary: Start typing a \
+word and you'll see the definition." in word_meaning_dictionary['description']:
+            print("{} words remaining ..".format(len(large_corpus) - enum))
+            continue
+        if "hindi_translated_word" not in word_meaning_dictionary.keys():
+            try:
+                hindi_translated_word = translator.translate(word, lang_tgt="hi")
+            except:
+                hindi_translated_word = ""
+            word_meaning_dictionary["hindi_translated_word"] = hindi_translated_word
+        if "vocabulary" not in word_meaning_dictionary.keys():
+            word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
+            wordnet_api = requests.get(word_url)
+            vocabulary = []
+            wordnet_soup = BeautifulSoup(wordnet_api.text, features="lxml")
+            for a_div in wordnet_soup.findAll("a"):
+                if "href" in a_div.attrs and a_div.attrs["href"].startswith("webwn?"):
+                    text = a_div.text
+                    if text != "S:":
+                        vocabulary.append(text)
+            word_meaning_dictionary["vocabulary"] = vocabulary
+        corpus_dict[word] = word_meaning_dictionary
+        print()
+        print("########## {} ###############".format(word))
+        print("corpus_dict[word] =", corpus_dict[word])
+        print()
+        if (
+            word_meaning_dictionary["description"]
+            == "We're sorry, your request has been denied."
+        ):
+            with open(corpus_path, "w") as f:
+                f.write(json.dumps(corpus_dict, indent=4))
+            return
+        if c % 20 == 0:
+            print("*" * 100)
+            print("*" * 100)
+            print("'{}' word is processing".format(word))
+            print("{} word are remaining".format(c))
+            print("Next checkpoint after {} words".format(20 - c % 20))
+            print("*" * 100)
+            print("*" * 100)
+            with open(corpus_path, "w") as f:
+                f.write(json.dumps(corpus_dict, indent=4))
+                print()
+                print()
+                print("#" * 100)
+                print("#" * 100)
+                print("*" * 100)
+                print("*" * 100)
+                print(
+                    "{} words are saved successfully\n{} word list are remaining...".format(
+                        len(corpus) - c, c
+                    )
+                )
+                print("*" * 100)
+                print("*" * 100)
+                print("#" * 100)
+                print("#" * 100)
+                print()
+                print()
+    with open(corpus_path, "w") as f:
+        f.write(json.dumps(corpus_dict, indent=4))
 
 
 if __name__ == "__main__":
@@ -1048,4 +1157,5 @@ if __name__ == "__main__":
     run()
     corpus_path = (BASE_PATH / "corpus.json").absolute().as_posix()
     update_corpos(corpus_path)
+    update_large_corpos(corpus_path)
     driver.close()

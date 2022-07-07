@@ -37,6 +37,11 @@ app = Flask(__name__)
 ROOT_PATH = pathlib.Path(__file__)
 BASE_PATH = ROOT_PATH.parent
 DATABASE_PATH = (BASE_PATH / "database.json").absolute().as_posix()
+if pathlib.Path(DATABASE_PATH).is_file():
+    with open(DATABASE_PATH, "r") as f:
+        VOCABULARY_DICT = json.load(f)
+print("Length of VOCABULARY_DICT is {}".format(len(VOCABULARY_DICT)))
+CORPUS_PATH = (BASE_PATH / "corpus.json").absolute().as_posix()
 IMPORTANT_WORDS_PATH = (BASE_PATH / "important_words.json").absolute().as_posix()
 OUTPUT_JSON_PATH = (BASE_PATH / "important_literature_words.json").absolute().as_posix()
 # with open(OUTPUT_JSON_PATH, "r") as f:
@@ -913,15 +918,13 @@ def back():
 @app.route("/next_word/", methods=["GET", "POST"], defaults={"word": "random_word"})
 @app.route("/next_word/<word>", methods=["GET", "POST"])
 def next_word(word):
-    if pathlib.Path(DATABASE_PATH).is_file():
-        with open(DATABASE_PATH, "r") as f:
-            vocabulary_dict = json.load(f)
-        if word == "random_word":
-            random_number = random.randint(0, len(vocabulary_dict))
-            word = sorted(vocabulary_dict.keys())[random_number]
-        return redirect(url_for("post_request", word=word))
-    else:
-        redirect(url_for("book"))
+    word = word.strip()
+    word = word.lower()
+    if word == "random_word":
+        vocabulary_dict = VOCABULARY_DICT
+        random_number = random.randint(0, len(vocabulary_dict))
+        word = sorted(vocabulary_dict.keys())[random_number]
+    return redirect(url_for("post_request", word=word))
 
 
 @app.route("/flashback", methods=["GET", "POST"])
@@ -1016,9 +1019,13 @@ def post_request(word):
         )
     # if word == "book_read":
     #     redirect(url_for("book"))
-    if pathlib.Path(DATABASE_PATH).is_file():
-        with open(DATABASE_PATH, "r") as f:
-            vocabulary_dict = json.load(f)
+    if pathlib.Path(CORPUS_PATH).is_file():
+        with open(CORPUS_PATH, "r") as f:
+            CORPUS_DICT = json.load(f)
+    else:
+        CORPUS_DICT = {}
+    print("Length of CORPUS_DICT is {}".format(len(CORPUS_DICT)))
+    vocabulary_dict = CORPUS_DICT
     if not (word in vocabulary_dict.keys()):
         # image_folder = BASE_PATH / "temp"
         # os.makedirs(image_folder, exist_ok=True)
@@ -1040,6 +1047,7 @@ def post_request(word):
         ):
             with open(DATABASE_PATH, "w") as f:
                 f.write(json.dumps(vocabulary_dict, indent=4))
+            pass
     else:
         word_meaning = vocabulary_dict[word]
     word_meaning["word"] = word.upper()
@@ -1169,7 +1177,7 @@ def post_request(word):
     print("*****************")
     print("next_word", next_word)
     print()
-    with open(DATABASE_PATH, "w") as f:
+    with open(CORPUS_PATH, "w") as f:
         f.write(json.dumps(vocabulary_dict, indent=4))
     return render_template(
         "index.html",
@@ -1200,7 +1208,7 @@ def api_request(word):
             vocabulary_dict = json.load(f)
     else:
         vocabulary_dict = {}
-    if "vocabulary" not in vocabulary_dict[word].keys():
+    if word in vocabulary_dict and "vocabulary" not in vocabulary_dict[word].keys():
         word_url = "http://wordnetweb.princeton.edu/perl/webwn?s={}".format(word)
         wordnet_api = requests.get(word_url)
         vocabulary = []
