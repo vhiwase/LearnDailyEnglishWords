@@ -1160,12 +1160,14 @@ def post_request(word):
     vocab_words = vocabulary_dict[word]["vocabulary"]
     vocab_words = sorted(vocab_words, key=lambda x: len(x))[::-1]
     next_word = vocab_words and vocab_words[0]
-    while next_word:
+    for next_word in vocab_words:
         if next_word in [stack_item[3].lower() for stack_item in stack]:
-            next_word = vocab_words and vocab_words[0]
+            next_word = vocab_words and vocab_words.pop(0)
             continue
-        else:
+        elif next_word in vocabulary_dict:
             break
+    else:
+        next_word = next_word and vocab_words.pop(0)
     if not next_word:
         next_word = "random_word"
     if not vocabulary_dict[word]["vocabulary"]:
@@ -1173,7 +1175,7 @@ def post_request(word):
     if not next_word or next_word.upper() == "FAVICON.ICO":
         next_word = "random_word"
     print("*****************")
-    print("word_meaning", word_meaning)
+    print("word", word)
     print("*****************")
     print("next_word", next_word)
     print()
