@@ -1156,18 +1156,15 @@ def post_request(word):
             vocabulary_dict[word]["hindi_translated_word"],
         ]
         push(memory, stack, CACHE_LENGTH)
-
     vocab_words = vocabulary_dict[word]["vocabulary"]
     vocab_words = sorted(vocab_words, key=lambda x: len(x))[::-1]
     next_word = vocab_words and vocab_words[0]
-    for next_word in vocab_words:
+    while next_word:
+        next_word = vocab_words and vocab_words.pop(0)
         if next_word in [stack_item[3].lower() for stack_item in stack]:
-            next_word = vocab_words and vocab_words.pop(0)
             continue
-        elif next_word in vocabulary_dict:
+        elif next_word and next_word in vocabulary_dict:
             break
-    else:
-        next_word = next_word and vocab_words.pop(0)
     if not next_word:
         next_word = "random_word"
     if not vocabulary_dict[word]["vocabulary"]:
